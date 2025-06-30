@@ -104,7 +104,7 @@
         <div class="carousel-slides flex h-full transition-transform duration-700 ease-in-out">
           <!-- 轮播图片1 -->
           <div class="carousel-slide w-full flex-shrink-0 relative">
-            <img src="https://picsum.photos/id/1067/1920/1080" alt="教会崇拜" class="w-full h-full object-cover">
+            <img src="https://cchc-herald.org/images/Screenshot_2022-02-14_143233.jpg" alt="教会崇拜" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-r from-dark/70 to-transparent flex items-center">
               <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-white">
                 <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold mb-4 text-shadow">以真理为根基</h2>
@@ -118,7 +118,7 @@
 
           <!-- 轮播图片2 -->
           <div class="carousel-slide w-full flex-shrink-0 relative">
-            <img src="https://drive.google.com/file/d/1F_6XScPtjHyTvuY2ln8gq2zWUu8dplHi/view?usp=drive_link" alt="教会团契" class="w-full h-full object-cover">
+            <img src="https://drive.google.com/uc?export=view&id=1F_6XScPtjHyTvuY2ln8gq2zWUu8dplHi" alt="教会团契" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-r from-dark/70 to-transparent flex items-center">
               <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-white">
                 <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold mb-4 text-shadow">以爱为纽带</h2>
@@ -128,7 +128,7 @@
 
           <!-- 轮播图片3 -->
           <div class="carousel-slide w-full flex-shrink-0 relative">
-            <img src="https://drive.google.com/file/d/17UWoGfMiKPD5DTOvtZ_ZForn4TCI9eBA/view?usp=drive_link" alt="2025" class="w-full h-full object-cover">
+            <img src="https://drive.google.com/uc?export=view&id=17UWoGfMiKPD5DTOvtZ_ZForn4TCI9eBA" alt="2025" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-r from-dark/70 to-transparent flex items-center">
               <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-white">
                 <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold mb-4 text-shadow">下一代的成长</h2>
@@ -270,7 +270,7 @@
           </div>
           <div class="order-1 lg:order-2">
             <div class="relative rounded-xl overflow-hidden shadow-xl">
-              <img src="https://picsum.photos/id/1068/800/600" alt="讲道图片" class="w-full h-auto">
+              <img src="https://cdn.monkplatform.com/image/czoxODc6Imh0dHBzJTNBJTJGJTJGNTFhZGVhZmY5ZDdiNWNlNGNhZDUtMWFjMTk4NWVmNDE0MWRkNDIzNjc4M2JkZjdkYzIzMDYuc3NsLmNmMi5yYWNrY2RuLmNvbSUyRnVwbG9hZGVkJTJGbCUyRjBlNDY2MjUyMl8xNDQ3MzUwMjE4X2xvZ29zLWJpYmxlLWNodXJjaC5qcGclM0ZzJTNENGRiMzcyM2U1YTAyYWM0OTAzMGFkMGMzNzYzZjc1YjgiOw==/logos-bible-church.jpg" alt="讲道图片" class="w-full h-auto">
               <div class="absolute inset-0 bg-primary/20 flex items-center justify-center">
                 <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg hover:bg-primary hover:text-white transition-custom">
                   <i class="fa fa-play text-3xl"></i>
@@ -293,12 +293,12 @@
 
         <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
           <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
-            <h3 class="text-xl font-bold mb-4 md:mb-0">2025年7月</h3>
+            <h3 id="calendar-title" class="text-xl font-bold mb-4 md:mb-0">2025年7月</h3>
             <div class="flex space-x-2">
-              <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-custom">
+              <button id="prev-month" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-custom">
                 <i class="fa fa-chevron-left mr-1"></i> 上月
               </button>
-              <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-custom">
+              <button id="next-month" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-custom">
                 下月 <i class="fa fa-chevron-right ml-1"></i>
               </button>
             </div>
@@ -316,160 +316,8 @@
           </div>
 
           <!-- 日历内容 -->
-          <div class="grid grid-cols-7 gap-2">
-            <!-- 上个月的日期 (2025年6月) -->
-            <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
-              <span class="block text-sm">29</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
-              <span class="block text-sm">30</span>
-            </div>
-            
-            <!-- 当月日期 (2025年7月) -->
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">1</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">2</span>
-              <div class="mt-1 text-xs bg-secondary/10 text-secondary rounded-full px-2 py-0.5">
-                祷告会
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">3</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">4</span>
-              <div class="mt-1 text-xs bg-accent/10 text-accent rounded-full px-2 py-0.5">
-                小组团契
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">5</span>
-            </div>
-            
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">6</span>
-              <div class="mt-1 text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">
-                主日崇拜
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">7</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">8</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">9</span>
-              <div class="mt-1 text-xs bg-secondary/10 text-secondary rounded-full px-2 py-0.5">
-                祷告会
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">10</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">11</span>
-              <div class="mt-1 text-xs bg-accent/10 text-accent rounded-full px-2 py-0.5">
-                小组团契
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">12</span>
-            </div>
-            
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">13</span>
-              <div class="mt-1 text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">
-                主日崇拜
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">14</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">15</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">16</span>
-              <div class="mt-1 text-xs bg-secondary/10 text-secondary rounded-full px-2 py-0.5">
-                祷告会
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">17</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">18</span>
-              <div class="mt-1 text-xs bg-accent/10 text-accent rounded-full px-2 py-0.5">
-                小组团契
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">19</span>
-            </div>
-            
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">20</span>
-              <div class="mt-1 text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">
-                主日崇拜
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">21</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">22</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">23</span>
-              <div class="mt-1 text-xs bg-secondary/10 text-secondary rounded-full px-2 py-0.5">
-                祷告会
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">24</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">25</span>
-              <div class="mt-1 text-xs bg-accent/10 text-accent rounded-full px-2 py-0.5">
-                小组团契
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">26</span>
-            </div>
-            
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">27</span>
-              <div class="mt-1 text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">
-                主日崇拜
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">28</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">29</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">30</span>
-              <div class="mt-1 text-xs bg-secondary/10 text-secondary rounded-full px-2 py-0.5">
-                祷告会
-              </div>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-              <span class="block text-sm">31</span>
-            </div>
-            
-            <!-- 下个月的日期 (2025年8月) -->
-            <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
-              <span class="block text-sm">1</span>
-            </div>
-            <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
-              <span class="block text-sm">2</span>
-            </div>
+          <div id="calendar-grid" class="grid grid-cols-7 gap-2">
+            <!-- 日历内容将通过JavaScript动态生成 -->
           </div>
 
           <!-- 图例 -->
@@ -522,7 +370,7 @@
                   </div>
                   <div>
                     <h4 class="text-lg font-medium mb-1">电话</h4>
-                    <p class="text-dark/70">+86 10 8888 8888</p>
+                    <p class="text-dark/70">714-757-0056</p>
                   </div>
                 </div>
                 
@@ -642,7 +490,7 @@
             </li>
             <li class="flex items-start">
               <i class="fa fa-phone mt-1 mr-3 text-white/70"></i>
-              <span class="text-white/70">+86 10 8888 8888</span>
+              <span class="text-white/70">714-757-0056</span>
             </li>
             <li class="flex items-start">
               <i class="fa fa-envelope mt-1 mr-3 text-white/70"></i>
@@ -745,6 +593,116 @@
 
     // 自动轮播 (每5秒切换一次)
     setInterval(nextSlide, 5000);
+
+    // 日历功能
+    let currentDate = new Date(2025, 6, 1); // 2025年7月 (月份从0开始)
+
+    const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', 
+                       '七月', '八月', '九月', '十月', '十一月', '十二月'];
+
+    function getChineseWeekday(date) {
+      const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+      return weekdays[date.getDay()];
+    }
+
+    function generateCalendar(year, month) {
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const daysInMonth = lastDay.getDate();
+      const startingDayOfWeek = firstDay.getDay();
+
+      // 上个月的最后几天
+      const prevMonth = new Date(year, month, 0);
+      const daysInPrevMonth = prevMonth.getDate();
+
+      let calendarHTML = '';
+      let dayCount = 1;
+      let nextMonthDayCount = 1;
+
+      // 生成6周的日历
+      for (let week = 0; week < 6; week++) {
+        for (let day = 0; day < 7; day++) {
+          const cellIndex = week * 7 + day;
+          
+          if (week === 0 && day < startingDayOfWeek) {
+            // 上个月的日期
+            const prevMonthDay = daysInPrevMonth - startingDayOfWeek + day + 1;
+            calendarHTML += `
+              <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
+                <span class="block text-sm">${prevMonthDay}</span>
+              </div>
+            `;
+          } else if (dayCount <= daysInMonth) {
+            // 当月日期
+            const currentDay = dayCount;
+            const currentDayDate = new Date(year, month, currentDay);
+            const weekday = getChineseWeekday(currentDayDate);
+            
+            let eventHTML = '';
+            
+            // 添加活动
+            if (weekday === '日') {
+              eventHTML = '<div class="mt-1 text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">主日崇拜</div>';
+            } else if (weekday === '三') {
+              eventHTML = '<div class="mt-1 text-xs bg-secondary/10 text-secondary rounded-full px-2 py-0.5">祷告会</div>';
+            } else if (weekday === '五') {
+              eventHTML = '<div class="mt-1 text-xs bg-accent/10 text-accent rounded-full px-2 py-0.5">小组团契</div>';
+            }
+
+            calendarHTML += `
+              <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
+                <span class="block text-sm">${currentDay}</span>
+                ${eventHTML}
+              </div>
+            `;
+            dayCount++;
+          } else {
+            // 下个月的日期
+            calendarHTML += `
+              <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
+                <span class="block text-sm">${nextMonthDayCount}</span>
+              </div>
+            `;
+            nextMonthDayCount++;
+          }
+        }
+        
+        // 如果已经显示了所有当月日期且已经有足够的行，就停止
+        if (dayCount > daysInMonth && week >= 4) {
+          break;
+        }
+      }
+
+      return calendarHTML;
+    }
+
+    function updateCalendar() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      
+      // 更新标题
+      document.getElementById('calendar-title').textContent = `${year}年${monthNames[month]}`;
+      
+      // 更新日历内容
+      document.getElementById('calendar-grid').innerHTML = generateCalendar(year, month);
+    }
+
+    function previousMonth() {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      updateCalendar();
+    }
+
+    function nextMonth() {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      updateCalendar();
+    }
+
+    // 绑定按钮事件
+    document.getElementById('prev-month').addEventListener('click', previousMonth);
+    document.getElementById('next-month').addEventListener('click', nextMonth);
+
+    // 初始化日历
+    updateCalendar();
 
     // 平滑滚动到导航链接
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
