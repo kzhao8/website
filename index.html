@@ -1,4 +1,547 @@
-<!DOCTYPE html>
+<script>
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 轮播图功能
+    const carousel = document.querySelector('.carousel-slides');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('prev-slide');
+    const nextBtn = document.getElementById('next-slide');
+
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    function updateSlide() {
+      // 移动到当前幻灯片
+      carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // 更新指示器
+      dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+          dot.classList.add('active');
+          dot.style.backgroundColor = 'white';
+        } else {
+          dot.classList.remove('active');
+          dot.style.backgroundColor = 'rgba(255,255,255,0.5)';
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    // 事件监听器
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+    // 指示器点击事件
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentSlide = index;
+        updateSlide();
+      });
+    });
+
+    // 初始化第一张幻灯片
+    updateSlide();
+
+    // 自动轮播 (每5秒切换一次)
+    setInterval(nextSlide, 5000);
+
+    // 相册管理功能
+    let albums = JSON.parse(localStorage.getItem('churchAlbums') || '[]');
+    let currentAlbumImages = [];
+    let currentImageIndex = 0;
+
+    // 预设相册数据
+    const presetAlbums = {
+      retreat: {
+        title: '2025年度退修会',
+        date: '2025-08-01',
+        description: '与主同在的美好时光，在大自然中安静聆听神的声音，弟兄姐妹彼此分享生命见证。',
+        images: [
+          'https://res.cloudinary.com/dtbsote4a/image/upload/v1751401171/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8.png',
+          'https://picsum.photos/id/1015/800/600',
+          'https://picsum.photos/id/1016/800/600',
+          'https://picsum.photos/id/1018/800/600',
+          'https://picsum.photos/id/1019/800/600',
+          'https://picsum.photos/id/1020/800/600',
+          'https://picsum.photos/id/1021/800/600',
+          'https://picsum.photos/id/1022/800/600',
+          'https://picsum.photos/id/1023/800/600',
+          'https://picsum.photos/id/1024/800/600',
+          'https://picsum.photos/id/1025/800/600',
+          'https://picsum.photos/id/1026/800/600'
+        ]
+      },
+      picnic: {
+        title: '夏日野餐联谊会',
+        date: '2025-07-12',
+        description: '阳光明媚的周末，弟兄姐妹齐聚公园，享受美食、游戏和温馨的团契时光。',
+        images: [
+          'https://res.cloudinary.com/dtbsote4a/image/upload/v1751317344/PICNIC_kmkpun_bvkdvi.jpg',
+          'https://picsum.photos/id/1027/800/600',
+          'https://picsum.photos/id/1028/800/600',
+          'https://picsum.photos/id/1029/800/600',
+          'https://picsum.photos/id/1030/800/600',
+          'https://picsum.photos/id/1031/800/600',
+          'https://picsum.photos/id/1032/800/600',
+          'https://picsum.photos/id/1033/800/600',
+          'https://picsum.photos/id/1034/800/600',
+          'https://picsum.photos/id/1035/800/600',
+          'https://picsum.photos/id/1036/800/600',
+          'https://picsum.photos/id/1037/800/600',
+          'https://picsum.photos/id/1038/800/600',
+          'https://picsum.photos/id/1039/800/600',
+          'https://picsum.photos/id/1040/800/600',
+          'https://picsum.photos/id/1041/800/600',
+          'https://picsum.photos/id/1042/800/600',
+          'https://picsum.photos/id/1043/800/600',
+          'https://picsum.photos/id/1044/800/600',
+          'https://picsum.photos/id/1045/800/600',
+          'https://picsum.photos/id/1046/800/600',
+          'https://picsum.photos/id/1047/800/600',
+          'https://picsum.photos/id/1048/800/600',
+          'https://picsum.photos/id/1049/800/600'
+        ]
+      },
+      worship: {
+        title: '主日崇拜时光',
+        date: '2025-07-06',
+        description: '每个主日的敬拜赞美，神话语的分享，弟兄姐妹在神面前的虔诚与喜乐。',
+        images: [
+          'https://cchc-herald.org/images/Screenshot_2022-02-14_143233.jpg',
+          'https://picsum.photos/id/1050/800/600',
+          'https://picsum.photos/id/1051/800/600',
+          'https://picsum.photos/id/1052/800/600',
+          'https://picsum.photos/id/1053/800/600',
+          'https://picsum.photos/id/1054/800/600',
+          'https://picsum.photos/id/1055/800/600',
+          'https://picsum.photos/id/1056/800/600',
+          'https://picsum.photos/id/1057/800/600',
+          'https://picsum.photos/id/1058/800/600',
+          'https://picsum.photos/id/1059/800/600',
+          'https://picsum.photos/id/1060/800/600',
+          'https://picsum.photos/id/1061/800/600',
+          'https://picsum.photos/id/1062/800/600',
+          'https://picsum.photos/id/1063/800/600',
+          'https://picsum.photos/id/1064/800/600',
+          'https://picsum.photos/id/1065/800/600',
+          'https://picsum.photos/id/1066/800/600',
+          'https://picsum.photos/id/1067/800/600',
+          'https://picsum.photos/id/1068/800/600',
+          'https://picsum.photos/id/1069/800/600',
+          'https://picsum.photos/id/1070/800/600',
+          'https://picsum.photos/id/1071/800/600',
+          'https://picsum.photos/id/1072/800/600',
+          'https://picsum.photos/id/1073/800/600',
+          'https://picsum.photos/id/1074/800/600',
+          'https://picsum.photos/id/1075/800/600',
+          'https://picsum.photos/id/1076/800/600',
+          'https://picsum.photos/id/1077/800/600',
+          'https://picsum.photos/id/1078/800/600',
+          'https://picsum.photos/id/1079/800/600',
+          'https://picsum.photos/id/1080/800/600',
+          'https://picsum.photos/id/1081/800/600',
+          'https://picsum.photos/id/1082/800/600',
+          'https://picsum.photos/id/1083/800/600',
+          'https://picsum.photos/id/1084/800/600'
+        ]
+      }
+    };
+
+    // 相册管理
+    const addAlbumBtn = document.getElementById('addAlbumBtn');
+    const albumForm = document.getElementById('albumForm');
+    const saveAlbumBtn = document.getElementById('saveAlbumBtn');
+    const cancelAlbumBtn = document.getElementById('cancelAlbumBtn');
+    const albumModal = document.getElementById('albumModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // 显示/隐藏相册表单
+    addAlbumBtn.addEventListener('click', () => {
+      albumForm.classList.toggle('hidden');
+    });
+
+    cancelAlbumBtn.addEventListener('click', () => {
+      albumForm.classList.add('hidden');
+      clearAlbumForm();
+    });
+
+    // 保存新相册
+    saveAlbumBtn.addEventListener('click', () => {
+      const title = document.getElementById('albumTitle').value.trim();
+      const date = document.getElementById('albumDate').value;
+      const description = document.getElementById('albumDescription').value.trim();
+      const imageFiles = document.getElementById('albumImages').files;
+
+      if (!title || !date || !description || imageFiles.length === 0) {
+        alert('请填写所有必填字段并上传至少一张图片');
+        return;
+      }
+
+      // 处理图片文件
+      const images = [];
+      const promises = [];
+
+      for (let i = 0; i < imageFiles.length; i++) {
+        const file = imageFiles[i];
+        const promise = new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            images.push(e.target.result);
+            resolve();
+          };
+          reader.readAsDataURL(file);
+        });
+        promises.push(promise);
+      }
+
+      Promise.all(promises).then(() => {
+        const newAlbum = {
+          id: Date.now(),
+          title,
+          date,
+          description,
+          images
+        };
+
+        albums.push(newAlbum);
+        localStorage.setItem('churchAlbums', JSON.stringify(albums));
+        addAlbumToDOM(newAlbum);
+        albumForm.classList.add('hidden');
+        clearAlbumForm();
+        alert('相册创建成功！');
+      });
+    });
+
+    // 清空表单
+    function clearAlbumForm() {
+      document.getElementById('albumTitle').value = '';
+      document.getElementById('albumDate').value = '';
+      document.getElementById('albumDescription').value = '';
+      document.getElementById('albumImages').value = '';
+    }
+
+    // 添加相册到DOM
+    function addAlbumToDOM(album) {
+      const albumsContainer = document.getElementById('albumsContainer');
+      const albumElement = document.createElement('div');
+      albumElement.className = 'card-effect';
+      albumElement.innerHTML = `
+        <div class="relative">
+          <img src="${album.images[0]}" alt="${album.title}" class="w-full h-48 object-cover">
+          <div class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
+            <i class="fa fa-calendar mr-1"></i> ${album.date}
+          </div>
+          <div class="absolute top-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-sm">
+            <i class="fa fa-camera mr-1"></i> ${album.images.length}张
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-2">${album.title}</h3>
+          <p class="text-dark/70 mb-4">${album.description}</p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-dark/60"><i class="fa fa-clock-o mr-1"></i> ${formatDate(album.date)}</span>
+            <button class="text-primary font-medium hover:underline flex items-center view-album-btn" data-album-id="${album.id}">
+              查看相册 <i class="fa fa-external-link ml-1"></i>
+            </button>
+          </div>
+        </div>
+      `;
+      
+      albumsContainer.appendChild(albumElement);
+      
+      // 绑定查看相册事件
+      albumElement.querySelector('.view-album-btn').addEventListener('click', () => {
+        openAlbum(album);
+      });
+    }
+
+    // 格式化日期
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    // 打开相册模态框
+    function openAlbum(albumData) {
+      currentAlbumImages = albumData.images;
+      currentImageIndex = 0;
+      
+      document.getElementById('modalAlbumTitle').textContent = albumData.title;
+      document.getElementById('modalAlbumDate').textContent = formatDate(albumData.date);
+      document.getElementById('modalAlbumDescription').textContent = albumData.description;
+      
+      updateModalImage();
+      generateThumbnails();
+      albumModal.classList.remove('hidden');
+    }
+
+    // 更新模态框图片
+    function updateModalImage() {
+      const modalImage = document.getElementById('modalImage');
+      const imageCounter = document.getElementById('imageCounter');
+      
+      modalImage.src = currentAlbumImages[currentImageIndex];
+      imageCounter.textContent = `${currentImageIndex + 1} / ${currentAlbumImages.length}`;
+    }
+
+    // 生成缩略图
+    function generateThumbnails() {
+      const thumbnailGrid = document.getElementById('thumbnailGrid');
+      thumbnailGrid.innerHTML = '';
+      
+      currentAlbumImages.forEach((image, index) => {
+        const thumbnail = document.createElement('div');
+        thumbnail.className = `relative cursor-pointer rounded overflow-hidden ${index === currentImageIndex ? 'ring-2 ring-primary' : ''}`;
+        thumbnail.innerHTML = `
+          <img src="${image}" alt="图片 ${index + 1}" class="w-full h-16 object-cover">
+        `;
+        
+        thumbnail.addEventListener('click', () => {
+          currentImageIndex = index;
+          updateModalImage();
+          updateThumbnailSelection();
+        });
+        
+        thumbnailGrid.appendChild(thumbnail);
+      });
+    }
+
+    // 更新缩略图选中状态
+    function updateThumbnailSelection() {
+      const thumbnails = document.querySelectorAll('#thumbnailGrid > div');
+      thumbnails.forEach((thumb, index) => {
+        if (index === currentImageIndex) {
+          thumb.classList.add('ring-2', 'ring-primary');
+        } else {
+          thumb.classList.remove('ring-2', 'ring-primary');
+        }
+      });
+    }
+
+    // 模态框事件监听
+    closeModalBtn.addEventListener('click', () => {
+      albumModal.classList.add('hidden');
+    });
+
+    // 点击模态框背景关闭
+    albumModal.addEventListener('click', (e) => {
+      if (e.target === albumModal) {
+        albumModal.classList.add('hidden');
+      }
+    });
+
+    // 图片导航按钮
+    document.getElementById('prevImageBtn').addEventListener('click', () => {
+      currentImageIndex = (currentImageIndex - 1 + currentAlbumImages.length) % currentAlbumImages.length;
+      updateModalImage();
+      updateThumbnailSelection();
+    });
+
+    document.getElementById('nextImageBtn').addEventListener('click', () => {
+      currentImageIndex = (currentImageIndex + 1) % currentAlbumImages.length;
+      updateModalImage();
+      updateThumbnailSelection();
+    });
+
+    // 键盘导航
+    document.addEventListener('keydown', (e) => {
+      if (!albumModal.classList.contains('hidden')) {
+        if (e.key === 'ArrowLeft') {
+          document.getElementById('prevImageBtn').click();
+        } else if (e.key === 'ArrowRight') {
+          document.getElementById('nextImageBtn').click();
+        } else if (e.key === 'Escape') {
+          albumModal.classList.add('hidden');
+        }
+      }
+    });
+
+    // 下载图片
+    document.getElementById('downloadImageBtn').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = currentAlbumImages[currentImageIndex];
+      link.download = `教会相册_图片_${currentImageIndex + 1}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+
+    // 绑定预设相册查看事件
+    document.querySelectorAll('.view-album-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const albumKey = btn.dataset.album;
+        if (presetAlbums[albumKey]) {
+          openAlbum(presetAlbums[albumKey]);
+        }
+      });
+    });
+
+    // 初始化：加载已保存的相册
+    function loadSavedAlbums() {
+      albums.forEach(album => {
+        addAlbumToDOM(album);
+      });
+    }
+
+    // 日历功能
+    let currentDate = new Date(2025, 6, 1); // 2025年7月 (月份从0开始)
+
+    const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', 
+                       '七月', '八月', '九月', '十月', '十一月', '十二月'];
+
+    function getChineseWeekday(date) {
+      const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+      return weekdays[date.getDay()];
+    }
+
+    function generateCalendar(year, month) {
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const daysInMonth = lastDay.getDate();
+      const startingDayOfWeek = firstDay.getDay();
+
+      // 上个月的最后几天
+      const prevMonth = new Date(year, month, 0);
+      const daysInPrevMonth = prevMonth.getDate();
+
+      let calendarHTML = '';
+      let dayCount = 1;
+      let nextMonthDayCount = 1;
+
+      // 生成6周的日历
+      for (let week = 0; week < 6; week++) {
+        for (let day = 0; day < 7; day++) {
+          const cellIndex = week * 7 + day;
+          
+          if (week === 0 && day < startingDayOfWeek) {
+            // 上个月的日期
+            const prevMonthDay = daysInPrevMonth - startingDayOfWeek + day + 1;
+            calendarHTML += `
+              <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
+                <span class="block text-sm">${prevMonthDay}</span>
+              </div>
+            `;
+          } else if (dayCount <= daysInMonth) {
+            // 当月日期
+            const currentDay = dayCount;
+            const currentDayDate = new Date(year, month, currentDay);
+            const weekday = getChineseWeekday(currentDayDate);
+            
+            let eventHTML = '';
+            
+            // 添加活动 - 根据新的活动安排
+            if (weekday === '日') {
+              eventHTML = '<div class="mt-1 text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">主日崇拜</div>';
+            } 
+            // 7月12日野餐会
+            if (month === 6 && currentDay === 12) {
+              eventHTML = '<div class="mt-1 text-xs bg-secondary/10 text-secondary rounded-full px-2 py-0.5">野餐会</div>';
+            }
+            // 8月1-3日退修会
+            if (month === 7 && (currentDay >= 1 && currentDay <= 3)) {
+              eventHTML = '<div class="mt-1 text-xs bg-accent/10 text-accent rounded-full px-2 py-0.5">退修会</div>';
+            }
+
+            calendarHTML += `
+              <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
+                <span class="block text-sm">${currentDay}</span>
+                ${eventHTML}
+              </div>
+            `;
+            dayCount++;
+          } else {
+            // 下个月的日期
+            calendarHTML += `
+              <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
+                <span class="block text-sm">${nextMonthDayCount}</span>
+              </div>
+            `;
+            nextMonthDayCount++;
+          }
+        }
+        
+        // 如果已经显示了所有当月日期且已经有足够的行，就停止
+        if (dayCount > daysInMonth && week >= 4) {
+          break;
+        }
+      }
+
+      return calendarHTML;
+    }
+
+    function updateCalendar() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      
+      // 更新标题
+      document.getElementById('calendar-title').textContent = `${year}年${monthNames[month]}`;
+      
+      // 更新日历内容
+      document.getElementById('calendar-grid').innerHTML = generateCalendar(year, month);
+    }
+
+    function previousMonth() {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      updateCalendar();
+    }
+
+    function nextMonth() {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      updateCalendar();
+    }
+
+    // 绑定按钮事件
+    document.getElementById('prev-month').addEventListener('click', previousMonth);
+    document.getElementById('next-month').addEventListener('click', nextMonth);
+
+    // 初始化日历
+    updateCalendar();
+
+    // 初始化相册
+    loadSavedAlbums();
+
+    // 平滑滚动到导航链接
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // 导航栏滚动效果
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 100) {
+        navbar.classList.add('bg-white/95');
+        navbar.classList.remove('bg-white/90');
+      } else {
+        navbar.classList.add('bg-white/90');
+        navbar.classList.remove('bg-white/95');
+      }
+    });
+  </script><!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -123,7 +666,16 @@
 
           <!-- 轮播图片3 -->
           <div class="carousel-slide w-full flex-shrink-0 relative">
-            <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751402306/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8_1_cf1z48.png" alt="教会退修会" class="w-full h-full object-cover">
+            <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751401171/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8.png" alt="教会退修会" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-dark/70 to-transparent flex items-center">
+              <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-white">
+                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold mb-4 text-shadow">2025退修会</h2>
+                <p class="text-[clamp(1rem,2vw,1.25rem)] max-w-2xl mb-6 text-shadow">8月1-3日，与主同在的安息时光，灵命更新的美好旅程</p>
+                <a href="#retreat-gallery" class="inline-block bg-white text-primary px-6 py-3 rounded-full font-medium hover:bg-neutral transition-custom shadow-lg">
+                  了解详情 <i class="fa fa-arrow-right ml-2"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -167,7 +719,7 @@
               <p class="text-dark/70 mb-4">2025年8月1日至3日，我们将举行年度退修会，一同在主里安息，深度交流，灵命更新。</p>
               <div class="flex justify-between items-center">
                 <span class="text-sm text-dark/60"><i class="fa fa-clock-o mr-1"></i> 8/1 - 8/3</span>
-                <a href="#" class="text-primary font-medium hover:underline flex items-center">
+                <a href="#retreat-gallery" class="text-primary font-medium hover:underline flex items-center">
                   了解详情 <i class="fa fa-angle-right ml-1"></i>
                 </a>
               </div>
@@ -187,7 +739,7 @@
               <p class="text-dark/70 mb-4">每周日早上9:50，适合各个年龄段的圣经学习课程，帮助信徒深入理解神的话语。</p>
               <div class="flex justify-between items-center">
                 <span class="text-sm text-dark/60"><i class="fa fa-clock-o mr-1"></i> 09:50 - 10:50</span>
-                <a href="#" class="text-primary font-medium hover:underline flex items-center">
+                <a href="#picnic-gallery" class="text-primary font-medium hover:underline flex items-center">
                   了解详情 <i class="fa fa-angle-right ml-1"></i>
                 </a>
               </div>
@@ -216,7 +768,7 @@
         </div>
 
         <div class="text-center mt-12">
-          <a href="#" class="inline-block border-2 border-primary text-primary px-8 py-3 rounded-full font-medium hover:bg-primary hover:text-white transition-custom">
+          <a href="#gallery" class="inline-block border-2 border-primary text-primary px-8 py-3 rounded-full font-medium hover:bg-primary hover:text-white transition-custom">
             查看全部活动 <i class="fa fa-th-large ml-2"></i>
           </a>
         </div>
@@ -271,6 +823,179 @@
         </div>
       </div>
     </section>
+
+    <!-- 活动相册部分 -->
+    <section id="gallery" class="py-16 md:py-24 bg-neutral">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="inline-block px-3 py-1 mb-4 bg-primary/10 text-primary rounded-full text-sm font-medium">活动相册</span>
+          <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold mb-4">教会活动回顾</h2>
+          <p class="text-lg text-dark/70">记录教会生活的美好瞬间，见证神在我们中间的作为</p>
+        </div>
+
+        <!-- 活动相册编辑器 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-12">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+            <h3 class="text-xl font-bold mb-4 md:mb-0">📸 添加新活动相册</h3>
+            <button id="addAlbumBtn" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-custom">
+              <i class="fa fa-plus mr-2"></i>创建相册
+            </button>
+          </div>
+          
+          <!-- 相册创建表单 -->
+          <div id="albumForm" class="hidden bg-gray-50 rounded-lg p-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+              <div>
+                <label class="block text-dark font-medium mb-2">相册标题</label>
+                <input type="text" id="albumTitle" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="输入相册标题">
+              </div>
+              <div>
+                <label class="block text-dark font-medium mb-2">活动日期</label>
+                <input type="date" id="albumDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom">
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="block text-dark font-medium mb-2">相册描述</label>
+              <textarea id="albumDescription" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="简要描述这次活动"></textarea>
+            </div>
+            <div class="mb-4">
+              <label class="block text-dark font-medium mb-2">上传图片</label>
+              <input type="file" id="albumImages" multiple accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom">
+              <p class="text-sm text-gray-500 mt-2">可选择多张图片同时上传</p>
+            </div>
+            <div class="flex gap-4">
+              <button id="saveAlbumBtn" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-custom">
+                <i class="fa fa-save mr-2"></i>保存相册
+              </button>
+              <button id="cancelAlbumBtn" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-custom">
+                <i class="fa fa-times mr-2"></i>取消
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 活动相册展示区 -->
+        <div id="albumsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 预设相册 - 2025退修会 -->
+          <div id="retreat-gallery" class="card-effect">
+            <div class="relative">
+              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751401171/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8.png" alt="2025退修会" class="w-full h-48 object-cover">
+              <div class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
+                <i class="fa fa-calendar mr-1"></i> 2025.08.01-03
+              </div>
+              <div class="absolute top-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-sm">
+                <i class="fa fa-camera mr-1"></i> 12张
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">2025年度退修会</h3>
+              <p class="text-dark/70 mb-4">与主同在的美好时光，在大自然中安静聆听神的声音，弟兄姐妹彼此分享生命见证。</p>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-dark/60"><i class="fa fa-map-marker mr-1"></i> 山间营地</span>
+                <button class="text-primary font-medium hover:underline flex items-center view-album-btn" data-album="retreat">
+                  查看相册 <i class="fa fa-external-link ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 预设相册 - 教会野餐会 -->
+          <div id="picnic-gallery" class="card-effect">
+            <div class="relative">
+              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751317344/PICNIC_kmkpun_bvkdvi.jpg" alt="教会野餐会" class="w-full h-48 object-cover">
+              <div class="absolute top-4 left-4 bg-secondary text-dark px-3 py-1 rounded-full text-sm font-medium">
+                <i class="fa fa-calendar mr-1"></i> 2025.07.12
+              </div>
+              <div class="absolute top-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-sm">
+                <i class="fa fa-camera mr-1"></i> 24张
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">夏日野餐联谊会</h3>
+              <p class="text-dark/70 mb-4">阳光明媚的周末，弟兄姐妹齐聚公园，享受美食、游戏和温馨的团契时光。</p>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-dark/60"><i class="fa fa-map-marker mr-1"></i> 社区公园</span>
+                <button class="text-primary font-medium hover:underline flex items-center view-album-btn" data-album="picnic">
+                  查看相册 <i class="fa fa-external-link ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 预设相册 - 主日崇拜 -->
+          <div class="card-effect">
+            <div class="relative">
+              <img src="https://cchc-herald.org/images/Screenshot_2022-02-14_143233.jpg" alt="主日崇拜" class="w-full h-48 object-cover">
+              <div class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
+                <i class="fa fa-calendar mr-1"></i> 每周日
+              </div>
+              <div class="absolute top-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-sm">
+                <i class="fa fa-camera mr-1"></i> 36张
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">主日崇拜时光</h3>
+              <p class="text-dark/70 mb-4">每个主日的敬拜赞美，神话语的分享，弟兄姐妹在神面前的虔诚与喜乐。</p>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-dark/60"><i class="fa fa-map-marker mr-1"></i> 教会大堂</span>
+                <button class="text-primary font-medium hover:underline flex items-center view-album-btn" data-album="worship">
+                  查看相册 <i class="fa fa-external-link ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 相册浏览模态框 -->
+    <div id="albumModal" class="fixed inset-0 bg-black/80 z-50 hidden">
+      <div class="absolute inset-4 bg-white rounded-xl overflow-hidden">
+        <div class="flex h-full">
+          <!-- 左侧图片展示区 -->
+          <div class="flex-1 relative bg-black flex items-center justify-center">
+            <img id="modalImage" src="" alt="" class="max-w-full max-h-full object-contain">
+            <button id="prevImageBtn" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 flex items-center justify-center text-primary shadow-md hover:bg-white transition-custom">
+              <i class="fa fa-chevron-left"></i>
+            </button>
+            <button id="nextImageBtn" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 flex items-center justify-center text-primary shadow-md hover:bg-white transition-custom">
+              <i class="fa fa-chevron-right"></i>
+            </button>
+            <div id="imageCounter" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full">
+              1 / 12
+            </div>
+          </div>
+          
+          <!-- 右侧信息面板 -->
+          <div class="w-80 bg-white p-6 overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+              <h3 id="modalAlbumTitle" class="text-xl font-bold">相册标题</h3>
+              <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700 text-2xl">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+            
+            <div class="mb-6">
+              <p id="modalAlbumDate" class="text-sm text-gray-500 mb-2">2025年7月12日</p>
+              <p id="modalAlbumDescription" class="text-gray-700">相册描述内容...</p>
+            </div>
+            
+            <!-- 缩略图网格 -->
+            <div class="mb-6">
+              <h4 class="font-medium mb-3">所有图片</h4>
+              <div id="thumbnailGrid" class="grid grid-cols-3 gap-2">
+                <!-- 缩略图将通过JavaScript动态生成 -->
+              </div>
+            </div>
+            
+            <!-- 下载按钮 -->
+            <button id="downloadImageBtn" class="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-custom">
+              <i class="fa fa-download mr-2"></i>下载当前图片
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- 教会行事历部分 -->
     <section id="calendar" class="py-16 md:py-24 bg-white">
