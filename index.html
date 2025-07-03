@@ -1037,11 +1037,11 @@
     adminLoginForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      // 模拟登录验证
+      // 模拟登录验证 - 使用你提供的用户名和密码
       const username = document.getElementById('admin-username').value;
       const password = document.getElementById('admin-password').value;
       
-      if (username === 'admin' && password === 'password') {
+      if (username === 'logosbiblechurch' && password === '654321') { // 修改为你提供的登录信息
         alert('登录成功！');
         adminLoginModal.classList.add('hidden');
         
