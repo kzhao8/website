@@ -1113,35 +1113,88 @@
     photoUploadForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      const files = photoUpload.files;
-      const category = document.getElementById('photo-category').value;
-      const title = document.getElementById('photo-title-input').value;  // 修正：使用正确的ID
-      const date = document.getElementById('photo-date-input').value;    // 修正：使用正确的ID
-      const description = document.getElementById('photo-description').value;
+      console.log('=== 开始表单提交调试 ===');
       
-      console.log('表单验证调试：');
-      console.log('files.length:', files.length);
-      console.log('title:', title);
-      console.log('date:', date);
-      console.log('category:', category);
+      // 获取所有表单元素
+      const filesInput = document.getElementById('photo-upload');
+      const categorySelect = document.getElementById('photo-category');
+      const titleInput = document.getElementById('photo-title-input');
+      const dateInput = document.getElementById('photo-date-input');
+      const descriptionTextarea = document.getElementById('photo-description');
       
-      if (files.length === 0) {
+      console.log('元素查找结果：');
+      console.log('filesInput:', filesInput);
+      console.log('categorySelect:', categorySelect);
+      console.log('titleInput:', titleInput);
+      console.log('dateInput:', dateInput);
+      console.log('descriptionTextarea:', descriptionTextarea);
+      
+      // 检查元素是否存在
+      if (!titleInput) {
+        console.error('未找到标题输入框元素！');
+        alert('页面元素加载错误，请刷新页面重试');
+        return;
+      }
+      
+      if (!dateInput) {
+        console.error('未找到日期输入框元素！');
+        alert('页面元素加载错误，请刷新页面重试');
+        return;
+      }
+      
+      // 获取表单值
+      const files = filesInput ? filesInput.files : null;
+      const category = categorySelect ? categorySelect.value : '';
+      const title = titleInput.value;
+      const date = dateInput.value;
+      const description = descriptionTextarea ? descriptionTextarea.value : '';
+      
+      console.log('表单值获取结果：');
+      console.log('files:', files);
+      console.log('files.length:', files ? files.length : 0);
+      console.log('title值:', `"${title}"`);
+      console.log('title长度:', title.length);
+      console.log('date值:', `"${date}"`);
+      console.log('category值:', `"${category}"`);
+      console.log('description值:', `"${description}"`);
+      
+      // 验证文件
+      if (!files || files.length === 0) {
+        console.log('验证失败：没有选择文件');
         alert('请选择要上传的照片！');
         return;
       }
       
-      if (!title.trim()) {  // 修正：添加 .trim() 检查空白字符
+      // 验证标题
+      if (!title || title.trim() === '') {
+        console.log('验证失败：标题为空');
+        console.log('标题原始值:', title);
+        console.log('标题trim后:', title.trim());
         alert('请输入照片标题！');
+        titleInput.focus(); // 聚焦到标题输入框
         return;
       }
       
-      if (!date) {
+      // 验证日期
+      if (!date || date.trim() === '') {
+        console.log('验证失败：日期为空');
         alert('请选择照片日期！');
+        dateInput.focus(); // 聚焦到日期输入框
         return;
       }
+      
+      console.log('=== 所有验证通过，开始上传 ===');
       
       // 模拟上传过程
-      alert(`上传成功！共上传了 ${files.length} 张照片\n标题：${title}\n日期：${date}\n分类：${category}`);
+      const successMessage = `上传成功！
+共上传了 ${files.length} 张照片
+标题：${title}
+日期：${date}
+分类：${category}
+${description ? '描述：' + description : ''}`;
+      
+      alert(successMessage);
+      console.log('上传成功！');
       
       // 关闭模态框
       uploadModal.classList.add('hidden');
@@ -1151,7 +1204,7 @@
       uploadPreview.innerHTML = '';
       uploadPreview.classList.add('hidden');
       
-      // 实际应用中，这里应该有代码将新上传的照片添加到相册中显示
+      console.log('=== 上传流程完成 ===');
     });
   </script>
 </body>
