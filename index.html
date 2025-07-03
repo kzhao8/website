@@ -332,70 +332,6 @@
                 </button>
               </div>
               <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
-                <h4 class="font-medium">主日崇拜</h4>
-                <p class="text-sm text-white/80">2025年6月30日</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 团契活动照片 -->
-          <div class="masonry-item gallery-item" data-category="fellowship">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751317344/PICNIC_kmkpun_bvkdvi.jpg" alt="教会野餐会" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
-                <h4 class="font-medium">教会野餐会</h4>
-                <p class="text-sm text-white/80">2025年6月15日</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 退修会照片 -->
-          <div class="masonry-item gallery-item" data-category="retreat">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751401171/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8.png" alt="2025退修会" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
-                <h4 class="font-medium">2025退修会</h4>
-                <p class="text-sm text-white/80">2025年3月15-17日</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 主日崇拜照片 -->
-          <div class="masonry-item gallery-item" data-category="worship">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://picsum.photos/id/1067/1920/1080" alt="主日学" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
-                <h4 class="font-medium">主日学</h4>
-                <p class="text-sm text-white/80">2025年6月23日</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 福音事工照片 -->
-          <div class="masonry-item gallery-item" data-category="outreach">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://picsum.photos/id/1076/1920/1080" alt="社区服务" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
                 <h4 class="font-medium">社区服务</h4>
                 <p class="text-sm text-white/80">2025年5月12日</p>
               </div>
@@ -761,13 +697,13 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
-            <label for="photo-title" class="block text-dark font-medium mb-2">标题</label>
-            <input type="text" id="photo-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入照片标题">
+            <label for="photo-title-input" class="block text-dark font-medium mb-2">标题</label>
+            <input type="text" id="photo-title-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入照片标题">
           </div>
           
           <div>
-            <label for="photo-date" class="block text-dark font-medium mb-2">日期</label>
-            <input type="date" id="photo-date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom">
+            <label for="photo-date-input" class="block text-dark font-medium mb-2">日期</label>
+            <input type="date" id="photo-date-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom">
           </div>
         </div>
         
@@ -1041,7 +977,7 @@
       const username = document.getElementById('admin-username').value;
       const password = document.getElementById('admin-password').value;
       
-      if (username === 'logosbiblechurch' && password === '654321') { // 修改为你提供的登录信息
+      if (username === 'logosbiblechurch' && password === '654321') {
         alert('登录成功！');
         adminLoginModal.classList.add('hidden');
         
@@ -1179,16 +1115,22 @@
       
       const files = photoUpload.files;
       const category = document.getElementById('photo-category').value;
-      const title = document.getElementById('photo-title').value;
-      const date = document.getElementById('photo-date').value;
+      const title = document.getElementById('photo-title-input').value;  // 修正：使用正确的ID
+      const date = document.getElementById('photo-date-input').value;    // 修正：使用正确的ID
       const description = document.getElementById('photo-description').value;
+      
+      console.log('表单验证调试：');
+      console.log('files.length:', files.length);
+      console.log('title:', title);
+      console.log('date:', date);
+      console.log('category:', category);
       
       if (files.length === 0) {
         alert('请选择要上传的照片！');
         return;
       }
       
-      if (!title) {
+      if (!title.trim()) {  // 修正：添加 .trim() 检查空白字符
         alert('请输入照片标题！');
         return;
       }
@@ -1199,7 +1141,7 @@
       }
       
       // 模拟上传过程
-      alert(`上传成功！共上传了 ${files.length} 张照片`);
+      alert(`上传成功！共上传了 ${files.length} 张照片\n标题：${title}\n日期：${date}\n分类：${category}`);
       
       // 关闭模态框
       uploadModal.classList.add('hidden');
@@ -1215,3 +1157,67 @@
 </body>
 
 </html>
+                <h4 class="font-medium">主日崇拜</h4>
+                <p class="text-sm text-white/80">2025年6月30日</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 团契活动照片 -->
+          <div class="masonry-item gallery-item" data-category="fellowship">
+            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
+              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751317344/PICNIC_kmkpun_bvkdvi.jpg" alt="教会野餐会" class="w-full h-auto">
+              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
+                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
+                  查看大图
+                </button>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
+                <h4 class="font-medium">教会野餐会</h4>
+                <p class="text-sm text-white/80">2025年6月15日</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 退修会照片 -->
+          <div class="masonry-item gallery-item" data-category="retreat">
+            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
+              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751401171/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8.png" alt="2025退修会" class="w-full h-auto">
+              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
+                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
+                  查看大图
+                </button>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
+                <h4 class="font-medium">2025退修会</h4>
+                <p class="text-sm text-white/80">2025年3月15-17日</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 主日崇拜照片 -->
+          <div class="masonry-item gallery-item" data-category="worship">
+            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
+              <img src="https://picsum.photos/id/1067/1920/1080" alt="主日学" class="w-full h-auto">
+              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
+                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
+                  查看大图
+                </button>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
+                <h4 class="font-medium">主日学</h4>
+                <p class="text-sm text-white/80">2025年6月23日</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 福音事工照片 -->
+          <div class="masonry-item gallery-item" data-category="outreach">
+            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
+              <img src="https://picsum.photos/id/1076/1920/1080" alt="社区服务" class="w-full h-auto">
+              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
+                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
+                  查看大图
+                </button>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
