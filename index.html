@@ -1,134 +1,4 @@
-// 管理员登录模态框
-    const adminLoginBtn = document.getElementById('admin-login-btn');
-    const adminLoginModal = document.getElementById('admin-login-modal');
-    const closeLoginModal = document.getElementById('close-login-modal');
-    const adminLoginForm = document.getElementById('admin-login-form');
-    
-    if (adminLoginBtn) {
-      adminLoginBtn.addEventListener('click', () => {
-        adminLoginModal.classList.remove('hidden');
-      });
-    }
-    
-    if (closeLoginModal) {
-      closeLoginModal.addEventListener('click', () => {
-        adminLoginModal.classList.add('hidden');
-      });
-    }
-    
-    if (adminLoginForm) {
-      adminLoginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const username = document.getElementById('admin-username').value;
-        const password = document.getElementById('admin-password').value;
-        
-        if (username === 'logosbiblechurch' && password === '654321') {
-          alert('登录成功！');
-          adminLoginModal.classList.add('hidden');
-          
-          // 登录成功后，更改管理员按钮为上传按钮
-          adminLoginBtn.innerHTML = '<i class="fa fa-upload mr-2"></i>上传照片';
-          adminLoginBtn.onclick = () => {
-            document.getElementById('admin-upload-modal').classList.remove('hidden');
-          };
-        } else {
-          alert('用户名或密码错误！');
-        }
-      });
-    }    // 简化的相册筛选功能
-    document.addEventListener('DOMContentLoaded', function() {
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const galleryItems = document.querySelectorAll('.gallery-item');
-      const galleryImages = document.querySelectorAll('.gallery-item img');
-      
-      // 分类筛选
-      filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          // 更新按钮状态
-          filterButtons.forEach(btn => btn.classList.remove('active'));
-          button.classList.add('active');
-          
-          const filter = button.getAttribute('data-filter');
-          
-          // 筛选图片
-          galleryItems.forEach(item => {
-            if (filter === 'all' || item.getAttribute('data-category') === filter) {
-              item.classList.remove('hidden');
-            } else {
-              item.classList.add('hidden');
-            }
-          });
-        });
-      });
-      
-      // 点击图片查看大图
-      galleryImages.forEach((img, index) => {
-        img.addEventListener('click', () => {
-          openLightbox(img);
-        });
-      });
-    });
-
-    // 简化的图片查看器
-    function openLightbox(img) {
-      // 创建遮罩层
-      const overlay = document.createElement('div');
-      overlay.className = 'fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4';
-      
-      // 创建图片容器
-      const container = document.createElement('div');
-      container.className = 'relative max-w-5xl max-h-full';
-      
-      // 创建大图
-      const largeImg = document.createElement('img');
-      largeImg.src = img.src;
-      largeImg.alt = img.alt;
-      largeImg.className = 'max-w-full max-h-full object-contain rounded-lg';
-      
-      // 创建关闭按钮
-      const closeBtn = document.createElement('button');
-      closeBtn.innerHTML = '<i class="fa fa-times text-2xl"></i>';
-      closeBtn.className = 'absolute top-4 right-4 text-white hover:text-gray-300 w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center';
-      
-      // 创建信息栏
-      const info = document.createElement('div');
-      const title = img.getAttribute('data-title') || img.alt;
-      const date = img.getAttribute('data-date') || '';
-      info.innerHTML = `
-        <div class="absolute bottom-4 left-4 right-4 bg-black bg-opacity-70 text-white p-4 rounded-lg">
-          <h4 class="text-xl font-medium">${title}</h4>
-          ${date ? `<p class="text-gray-300">${date}</p>` : ''}
-        </div>
-      `;
-      
-      // 组装元素
-      container.appendChild(largeImg);
-      container.appendChild(closeBtn);
-      container.appendChild(info);
-      overlay.appendChild(container);
-      document.body.appendChild(overlay);
-      
-      // 关闭功能
-      const closeLightbox = () => {
-        document.body.removeChild(overlay);
-      };
-      
-      closeBtn.addEventListener('click', closeLightbox);
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-          closeLightbox();
-        }
-      });
-      
-      // ESC键关闭
-      document.addEventListener('keydown', function escHandler(e) {
-        if (e.key === 'Escape') {
-          closeLightbox();
-          document.removeEventListener('keydown', escHandler);
-        }
-      });
-    }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -185,51 +55,6 @@
       .nav-link {
         @apply relative text-dark hover:text-primary transition-custom after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-custom hover:after:w-full;
       }
-      
-      .masonry-grid {
-        column-count: 1;
-        column-gap: 1rem;
-      }
-      
-      @screen md {
-        .masonry-grid {
-          column-count: 2;
-        }
-      }
-      
-      @screen lg {
-        .masonry-grid {
-          column-count: 3;
-        }
-      }
-      
-      .masonry-item {
-        break-inside: avoid;
-        margin-bottom: 1rem;
-      }
-
-      /* 简化的相册样式 */
-      .filter-btn {
-        @apply px-5 py-2 rounded-full font-medium transition-all duration-300 cursor-pointer;
-        @apply bg-gray-200 text-gray-700 hover:bg-primary hover:text-white;
-      }
-      
-      .filter-btn.active {
-        @apply bg-primary text-white;
-      }
-      
-      .gallery-item {
-        @apply rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer;
-        @apply transform hover:scale-105;
-      }
-      
-      .gallery-item img {
-        @apply w-full h-auto object-cover;
-      }
-      
-      .gallery-item.hidden {
-        @apply opacity-0 scale-95 pointer-events-none;
-      }
     }
   </style>
 </head>
@@ -249,7 +74,6 @@
           <a href="#about" class="nav-link">关于我们</a>
           <a href="#events" class="nav-link">近期活动</a>
           <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="nav-link">主日讲道</a> <!-- 主日讲道链接到YouTube -->
-          <a href="#gallery" class="nav-link">教会相册</a> <!-- 新增相册链接 -->
           <a href="#devotion" class="nav-link">每日灵修</a>
           <a href="#calendar" class="nav-link">教会行事历</a> <!-- 添加教会行事历 -->
         </nav>
@@ -267,7 +91,6 @@
         <a href="#about" class="block py-2 nav-link">关于我们</a>
         <a href="#events" class="block py-2 nav-link">近期活动</a>
         <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="block py-2 nav-link">主日讲道</a> <!-- 移动端主日讲道链接 -->
-        <a href="#gallery" class="block py-2 nav-link">教会相册</a> <!-- 移动端新增相册链接 -->
         <a href="#devotion" class="block py-2 nav-link">每日灵修</a>
         <a href="#calendar" class="block py-2 nav-link">教会行事历</a> <!-- 移动端添加教会行事历 -->
       </div>
@@ -438,71 +261,10 @@
           <div class="order-1 lg:order-2">
             <div class="relative rounded-xl overflow-hidden shadow-xl">
               <img src="https://cdn.monkplatform.com/image/czoxODc6Imh0dHBzJTNBJTJGJTJGNTFhZGVhZmY5ZDdiNWNlNGNhZDUtMWFjMTk4NWVmNDE0MWRkNDIzNjc4M2JkZjdkYzIzMDYuc3NsLmNmMi5yYWNrY2RuLmNvbSUyRnVwbG9hZGVkJTJGbCUyRjBlNDY2MjUyMl8xNDQ3MzUwMjE4X2xvZ29zLWJpYmxlLWNodXJjaC5qcGclM0ZzJTNENGRiMzcyM2U1YTAyYWM0OTAzMGFkMGMzNzYzZjc1YjgiOw==/logos-bible-church.jpg" alt="讲道图片" class="w-full h-auto">
-                <div class="absolute inset-0 bg-primary/20 flex items-center justify-center">
-                  <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg hover:bg-primary hover:text-white transition-custom">
-                    <i class="fa fa-play text-3xl"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 教会相册部分 -->
-    <section id="gallery" class="py-16 md:py-24 bg-white">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <span class="inline-block px-3 py-1 mb-4 bg-primary/10 text-primary rounded-full text-sm font-medium">教会相册</span>
-          <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold mb-4">教会活动影像记录</h2>
-          <p class="text-lg text-dark/70">记录教会各项活动的精彩瞬间，见证神在我们中间的作为</p>
-        </div>
-
-        <!-- 相册分类筛选 -->
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-          <button class="gallery-filter-btn px-5 py-2 rounded-full bg-primary text-white font-medium hover:bg-primary/90 transition-custom active" data-filter="all">全部</button>
-          <button class="gallery-filter-btn px-5 py-2 rounded-full bg-white text-dark font-medium hover:bg-primary/10 transition-custom" data-filter="worship">主日崇拜</button>
-          <button class="gallery-filter-btn px-5 py-2 rounded-full bg-white text-dark font-medium hover:bg-primary/10 transition-custom" data-filter="fellowship">团契活动</button>
-          <button class="gallery-filter-btn px-5 py-2 rounded-full bg-white text-dark font-medium hover:bg-primary/10 transition-custom" data-filter="retreat">退修会</button>
-          <button class="gallery-filter-btn px-5 py-2 rounded-full bg-white text-dark font-medium hover:bg-primary/10 transition-custom" data-filter="outreach">福音事工</button>
-          
-          <!-- 管理员登录按钮 -->
-          <button id="admin-login-btn" class="px-5 py-2 rounded-full bg-accent text-white font-medium hover:bg-accent/90 transition-custom">
-            <i class="fa fa-user-secret mr-2"></i>管理员登录
-          </button>
-        </div>
-
-        <!-- 相册网格 (瀑布流布局) -->
-        <div class="masonry-grid">
-          <!-- 主日崇拜照片 -->
-          <div class="masonry-item gallery-item" data-category="worship">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://cchc-herald.org/images/Screenshot_2022-02-14_143233.jpg" alt="主日崇拜" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
-                <h4 class="font-medium">社区服务</h4>
-                <p class="text-sm text-white/80">2025年5月12日</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 团契活动照片 -->
-          <div class="masonry-item gallery-item" data-category="fellowship">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://picsum.photos/id/1071/1920/1080" alt="青年聚会" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
-                <h4 class="font-medium">青年聚会</h4>
-                <p class="text-sm text-white/80">2025年6月2日</p>
+              <div class="absolute inset-0 bg-primary/20 flex items-center justify-center">
+                <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg hover:bg-primary hover:text-white transition-custom">
+                  <i class="fa fa-play text-3xl"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -511,7 +273,7 @@
     </section>
 
     <!-- 教会行事历部分 -->
-    <section id="calendar" class="py-16 md:py-24 bg-neutral">
+    <section id="calendar" class="py-16 md:py-24 bg-white">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16">
           <span class="inline-block px-3 py-1 mb-4 bg-primary/10 text-primary rounded-full text-sm font-medium">教会行事历</span>
@@ -568,7 +330,7 @@
     </section>
 
     <!-- 联系我们部分 -->
-    <section id="contact" class="py-16 md:py-24 bg-white">
+    <section id="contact" class="py-16 md:py-24 bg-neutral">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16">
           <span class="inline-block px-3 py-1 mb-4 bg-primary/10 text-primary rounded-full text-sm font-medium">联络我们</span>
@@ -578,7 +340,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <div class="bg-neutral rounded-xl shadow-lg p-8">
+            <div class="bg-white rounded-xl shadow-lg p-8">
               <h3 class="text-2xl font-bold mb-6">联系方式</h3>
               
               <div class="space-y-6">
@@ -626,7 +388,7 @@
           </div>
           
           <div>
-            <div class="bg-neutral rounded-xl shadow-lg p-8">
+            <div class="bg-white rounded-xl shadow-lg p-8">
               <h3 class="text-2xl font-bold mb-6">发送消息</h3>
               
               <form>
@@ -689,7 +451,6 @@
             <li><a href="#about" class="text-white/70 hover:text-white transition-custom">关于我们</a></li>
             <li><a href="#events" class="text-white/70 hover:text-white transition-custom">近期活动</a></li>
             <li><a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="text-white/70 hover:text-white transition-custom">主日讲道</a></li>
-            <li><a href="#gallery" class="text-white/70 hover:text-white transition-custom">教会相册</a></li>
             <li><a href="#calendar" class="text-white/70 hover:text-white transition-custom">教会行事历</a></li>
             <li><a href="#contact" class="text-white/70 hover:text-white transition-custom">联络我们</a></li>
           </ul>
@@ -748,110 +509,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- 管理员登录模态框 -->
-  <div id="admin-login-modal" class="fixed inset-0 bg-dark/70 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-xl shadow-xl p-8 max-w-md w-full mx-4">
-      <div class="text-center mb-6">
-        <h3 class="text-2xl font-bold text-primary">管理员登录</h3>
-        <p class="text-dark/70">请输入管理员账号和密码</p>
-      </div>
-      
-      <form id="admin-login-form">
-        <div class="mb-6">
-          <label for="admin-username" class="block text-dark font-medium mb-2">用户名</label>
-          <input type="text" id="admin-username" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入用户名" value="logosbiblechurch"> <!-- 默认用户名 -->
-        </div>
-        
-        <div class="mb-6">
-          <label for="admin-password" class="block text-dark font-medium mb-2">密码</label>
-          <input type="password" id="admin-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入密码" value="654321"> <!-- 默认密码 -->
-        </div>
-        
-        <div class="flex justify-between items-center mb-6">
-          <label class="inline-flex items-center">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-primary rounded" checked> <!-- 记住我默认选中 -->
-            <span class="ml-2 text-dark/70">记住我</span>
-          </label>
-          <a href="#" class="text-primary hover:underline">忘记密码?</a>
-        </div>
-        
-        <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-primary/90 transition-custom flex items-center justify-center">
-          登录 <i class="fa fa-sign-in ml-2"></i>
-        </button>
-      </form>
-      
-      <button id="close-login-modal" class="absolute top-4 right-4 text-dark/50 hover:text-dark transition-custom">
-        <i class="fa fa-times text-xl"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- 管理员上传模态框 -->
-  <div id="admin-upload-modal" class="fixed inset-0 bg-dark/70 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-xl shadow-xl p-8 max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-2xl font-bold text-primary">上传照片</h3>
-        <button id="close-upload-modal" class="text-dark/50 hover:text-dark transition-custom">
-          <i class="fa fa-times text-xl"></i>
-        </button>
-      </div>
-      
-      <form id="photo-upload-form">
-        <div class="mb-6">
-          <label class="block text-dark font-medium mb-2">选择照片</label>
-          <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-custom">
-            <input type="file" id="photo-upload" class="hidden" multiple accept="image/*">
-            <label for="photo-upload" class="cursor-pointer">
-              <i class="fa fa-cloud-upload text-4xl text-primary/50 mb-3"></i>
-              <p class="text-dark/70">点击或拖拽文件到此处上传</p>
-              <p class="text-xs text-dark/50 mt-2">支持 JPG, PNG, GIF 格式</p>
-            </label>
-          </div>
-          
-          <div id="upload-preview" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4 hidden">
-            <!-- 上传预览将通过JavaScript动态生成 -->
-          </div>
-        </div>
-        
-        <div class="mb-6">
-          <label for="photo-category" class="block text-dark font-medium mb-2">分类</label>
-          <select id="photo-category" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom">
-            <option value="worship">主日崇拜</option>
-            <option value="fellowship">团契活动</option>
-            <option value="retreat">退修会</option>
-            <option value="outreach">福音事工</option>
-          </select>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <label for="photo-title-input" class="block text-dark font-medium mb-2">标题</label>
-            <input type="text" id="photo-title-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入照片标题">
-          </div>
-          
-          <div>
-            <label for="photo-date-input" class="block text-dark font-medium mb-2">日期</label>
-            <input type="date" id="photo-date-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom">
-          </div>
-        </div>
-        
-        <div class="mb-6">
-          <label for="photo-description" class="block text-dark font-medium mb-2">描述 (可选)</label>
-          <textarea id="photo-description" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入照片描述"></textarea>
-        </div>
-        
-        <div class="flex justify-end space-x-4">
-          <button type="button" id="cancel-upload" class="px-6 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-100 transition-custom">
-            取消
-          </button>
-          <button type="submit" class="px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-custom flex items-center justify-center">
-            上传照片 <i class="fa fa-upload ml-2"></i>
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <script>
     // 移动端菜单切换
@@ -1055,242 +712,7 @@
         navbar.classList.remove('bg-white/95');
       }
     });
-
-    // 管理员登录模态框
-    const adminLoginBtn = document.getElementById('admin-login-btn');
-    const adminLoginModal = document.getElementById('admin-login-modal');
-    const closeLoginModal = document.getElementById('close-login-modal');
-    const adminLoginForm = document.getElementById('admin-login-form');
-
-    // 管理员上传功能
-    const uploadModal = document.getElementById('admin-upload-modal');
-    const closeUploadModal = document.getElementById('close-upload-modal');
-    const cancelUpload = document.getElementById('cancel-upload');
-    const photoUploadForm = document.getElementById('photo-upload-form');
-    const photoUpload = document.getElementById('photo-upload');
-    const uploadPreview = document.getElementById('upload-preview');
-    
-    closeUploadModal.addEventListener('click', () => {
-      uploadModal.classList.add('hidden');
-    });
-    
-    cancelUpload.addEventListener('click', () => {
-      uploadModal.classList.add('hidden');
-    });
-    
-    photoUpload.addEventListener('change', (e) => {
-      const files = e.target.files;
-      
-      if (files.length > 0) {
-        uploadPreview.innerHTML = '';
-        uploadPreview.classList.remove('hidden');
-        
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-          const reader = new FileReader();
-          
-          reader.onload = (e) => {
-            const previewItem = document.createElement('div');
-            previewItem.className = 'relative';
-            previewItem.innerHTML = `
-              <img src="${e.target.result}" alt="预览图" class="w-full h-24 object-cover rounded-lg">
-              <button class="absolute top-1 right-1 w-6 h-6 bg-white/80 rounded-full flex items-center justify-center text-dark hover:bg-white transition-custom" data-index="${i}">
-                <i class="fa fa-times"></i>
-              </button>
-            `;
-            
-            uploadPreview.appendChild(previewItem);
-            
-            // 绑定删除预览图按钮事件
-            previewItem.querySelector('button').addEventListener('click', function() {
-              const index = parseInt(this.getAttribute('data-index'));
-              // 从文件列表中移除该文件
-              const dt = new DataTransfer();
-              const fileList = photoUpload.files;
-              
-              for (let j = 0; j < fileList.length; j++) {
-                if (j !== index) {
-                  dt.items.add(fileList[j]);
-                }
-              }
-              
-              photoUpload.files = dt.files;
-              
-              // 更新预览
-              uploadPreview.removeChild(previewItem);
-              
-              if (photoUpload.files.length === 0) {
-                uploadPreview.classList.add('hidden');
-              }
-            });
-          };
-          
-          reader.readAsDataURL(file);
-        }
-      }
-    });
-    
-    photoUploadForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      console.log('=== 开始表单提交调试 ===');
-      
-      // 获取所有表单元素
-      const filesInput = document.getElementById('photo-upload');
-      const categorySelect = document.getElementById('photo-category');
-      const titleInput = document.getElementById('photo-title-input');
-      const dateInput = document.getElementById('photo-date-input');
-      const descriptionTextarea = document.getElementById('photo-description');
-      
-      console.log('元素查找结果：');
-      console.log('filesInput:', filesInput);
-      console.log('categorySelect:', categorySelect);
-      console.log('titleInput:', titleInput);
-      console.log('dateInput:', dateInput);
-      console.log('descriptionTextarea:', descriptionTextarea);
-      
-      // 检查元素是否存在
-      if (!titleInput) {
-        console.error('未找到标题输入框元素！');
-        alert('页面元素加载错误，请刷新页面重试');
-        return;
-      }
-      
-      if (!dateInput) {
-        console.error('未找到日期输入框元素！');
-        alert('页面元素加载错误，请刷新页面重试');
-        return;
-      }
-      
-      // 获取表单值
-      const files = filesInput ? filesInput.files : null;
-      const category = categorySelect ? categorySelect.value : '';
-      const title = titleInput.value;
-      const date = dateInput.value;
-      const description = descriptionTextarea ? descriptionTextarea.value : '';
-      
-      console.log('表单值获取结果：');
-      console.log('files:', files);
-      console.log('files.length:', files ? files.length : 0);
-      console.log('title值:', `"${title}"`);
-      console.log('title长度:', title.length);
-      console.log('date值:', `"${date}"`);
-      console.log('category值:', `"${category}"`);
-      console.log('description值:', `"${description}"`);
-      
-      // 验证文件
-      if (!files || files.length === 0) {
-        console.log('验证失败：没有选择文件');
-        alert('请选择要上传的照片！');
-        return;
-      }
-      
-      // 验证标题
-      if (!title || title.trim() === '') {
-        console.log('验证失败：标题为空');
-        console.log('标题原始值:', title);
-        console.log('标题trim后:', title.trim());
-        alert('请输入照片标题！');
-        titleInput.focus(); // 聚焦到标题输入框
-        return;
-      }
-      
-      // 验证日期
-      if (!date || date.trim() === '') {
-        console.log('验证失败：日期为空');
-        alert('请选择照片日期！');
-        dateInput.focus(); // 聚焦到日期输入框
-        return;
-      }
-      
-      console.log('=== 所有验证通过，开始上传 ===');
-      
-      // 模拟上传过程
-      const successMessage = `上传成功！
-共上传了 ${files.length} 张照片
-标题：${title}
-日期：${date}
-分类：${category}
-${description ? '描述：' + description : ''}`;
-      
-      alert(successMessage);
-      console.log('上传成功！');
-      
-      // 关闭模态框
-      uploadModal.classList.add('hidden');
-      
-      // 重置表单
-      photoUploadForm.reset();
-      uploadPreview.innerHTML = '';
-      uploadPreview.classList.add('hidden');
-      
-      console.log('=== 上传流程完成 ===');
-    });
   </script>
 </body>
 
 </html>
-                <h4 class="font-medium">主日崇拜</h4>
-                <p class="text-sm text-white/80">2025年6月30日</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 团契活动照片 -->
-          <div class="masonry-item gallery-item" data-category="fellowship">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751317344/PICNIC_kmkpun_bvkdvi.jpg" alt="教会野餐会" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
-                <h4 class="font-medium">教会野餐会</h4>
-                <p class="text-sm text-white/80">2025年6月15日</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 退修会照片 -->
-          <div class="masonry-item gallery-item" data-category="retreat">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751401171/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8.png" alt="2025退修会" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
-                <h4 class="font-medium">2025退修会</h4>
-                <p class="text-sm text-white/80">2025年3月15-17日</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 主日崇拜照片 -->
-          <div class="masonry-item gallery-item" data-category="worship">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://picsum.photos/id/1067/1920/1080" alt="主日学" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
-                <h4 class="font-medium">主日学</h4>
-                <p class="text-sm text-white/80">2025年6月23日</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 福音事工照片 -->
-          <div class="masonry-item gallery-item" data-category="outreach">
-            <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift">
-              <img src="https://picsum.photos/id/1076/1920/1080" alt="社区服务" class="w-full h-auto">
-              <div class="absolute inset-0 bg-dark/0 hover:bg-dark/50 transition-custom flex items-center justify-center opacity-0 hover:opacity-100">
-                <button class="view-photo-btn bg-white text-primary px-4 py-2 rounded-full font-medium">
-                  查看大图
-                </button>
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent text-white">
