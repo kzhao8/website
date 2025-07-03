@@ -4,10 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>圣经真道教会 | 以真理为根基，以爱为纽带</title>
+  <title>每日灵修 | 圣经真道教会</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
 
   <!-- 配置Tailwind自定义样式 -->
   <script>
@@ -15,11 +14,11 @@
       theme: {
         extend: {
           colors: {
-            primary: '#1E3A8A', // 深蓝主色调
-            secondary: '#D4AF37', // 金色辅助色
-            accent: '#3B82F6', // 亮蓝强调色
-            neutral: '#F5F5DC', // 米白色背景
-            dark: '#1F2937', // 深色文本
+            primary: '#1E3A8A',
+            secondary: '#D4AF37',
+            accent: '#3B82F6',
+            neutral: '#F5F5DC',
+            dark: '#1F2937',
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -32,10 +31,6 @@
 
   <style type="text/tailwindcss">
     @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-
       .text-shadow {
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
@@ -55,6 +50,22 @@
       .nav-link {
         @apply relative text-dark hover:text-primary transition-custom after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-custom hover:after:w-full;
       }
+
+      .devotion-content {
+        @apply prose prose-lg max-w-none;
+      }
+
+      .devotion-content h1, .devotion-content h2, .devotion-content h3 {
+        @apply text-primary font-serif;
+      }
+
+      .devotion-content blockquote {
+        @apply border-l-4 border-secondary bg-secondary/5 pl-4 py-2 italic;
+      }
+
+      .verse-highlight {
+        @apply bg-primary/10 border-l-4 border-primary pl-4 py-3 my-4 rounded-r-lg;
+      }
     }
   </style>
 </head>
@@ -64,18 +75,18 @@
   <header id="navbar" class="fixed w-full top-0 z-50 transition-custom bg-white/90 backdrop-blur-md shadow-sm">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16 md:h-20">
-        <!-- 左上角LOGO修改为文字：圣经真道教会 -->
-        <a href="#" class="flex items-center">
+        <!-- 左上角LOGO -->
+        <a href="index.html" class="flex items-center">
           <span class="text-2xl font-serif font-bold text-primary">圣经真道教会</span>
         </a>
 
         <!-- 桌面导航 -->
         <nav class="hidden md:flex space-x-8">
-          <a href="#about" class="nav-link">关于我们</a>
-          <a href="#events" class="nav-link">近期活动</a>
-          <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="nav-link">主日讲道</a> <!-- 主日讲道链接到YouTube -->
-          <a href="#devotion" class="nav-link">每日灵修</a>
-          <a href="#calendar" class="nav-link">教会行事历</a> <!-- 添加教会行事历 -->
+          <a href="index.html#about" class="nav-link">关于我们</a>
+          <a href="index.html#events" class="nav-link">近期活动</a>
+          <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="nav-link">主日讲道</a>
+          <a href="#" class="nav-link text-primary font-medium">每日灵修</a>
+          <a href="index.html#calendar" class="nav-link">教会行事历</a>
         </nav>
 
         <!-- 移动端菜单按钮 -->
@@ -88,336 +99,150 @@
     <!-- 移动端导航菜单 -->
     <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
       <div class="container mx-auto px-4 py-3 space-y-3">
-        <a href="#about" class="block py-2 nav-link">关于我们</a>
-        <a href="#events" class="block py-2 nav-link">近期活动</a>
-        <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="block py-2 nav-link">主日讲道</a> <!-- 移动端主日讲道链接 -->
-        <a href="#devotion" class="block py-2 nav-link">每日灵修</a>
-        <a href="#calendar" class="block py-2 nav-link">教会行事历</a> <!-- 移动端添加教会行事历 -->
+        <a href="index.html#about" class="block py-2 nav-link">关于我们</a>
+        <a href="index.html#events" class="block py-2 nav-link">近期活动</a>
+        <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="block py-2 nav-link">主日讲道</a>
+        <a href="#" class="block py-2 nav-link text-primary font-medium">每日灵修</a>
+        <a href="index.html#calendar" class="block py-2 nav-link">教会行事历</a>
       </div>
     </div>
   </header>
 
-  <main>
-    <!-- 轮播图部分 -->
-    <section class="pt-16 md:pt-20">
-      <div id="carousel" class="relative h-[50vh] min-h-[400px] overflow-hidden">
-        <div class="carousel-slides flex h-full transition-transform duration-700 ease-in-out">
-          <!-- 轮播图片1 -->
-          <div class="carousel-slide w-full flex-shrink-0 relative">
-            <img src="https://cchc-herald.org/images/Screenshot_2022-02-14_143233.jpg" alt="教会崇拜" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-dark/70 to-transparent flex items-center">
-              <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-white">
-                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-serif font-bold mb-4 text-shadow">以真理为根基</h2>
-                <p class="text-[clamp(1rem,2vw,1.25rem)] max-w-2xl mb-6 text-shadow">在真道上建立生命，在爱中彼此相连，一同追求神的心意</p>
-                <a href="#about" class="inline-block bg-white text-primary px-6 py-3 rounded-full font-medium hover:bg-neutral transition-custom shadow-lg">
-                  了解更多 <i class="fa fa-arrow-right ml-2"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- 轮播图片2 -->
-          <div class="carousel-slide w-full flex-shrink-0 relative">
-            <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751317344/PICNIC_kmkpun_bvkdvi.jpg" alt="教会团契" class="w-full h-full object-cover">
-          </div>
-
-          <!-- 轮播图片3 -->
-          <div class="carousel-slide w-full flex-shrink-0 relative">
-            <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751401171/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8.png" alt="教会退修会" class="w-full h-[300px] md:h-[400px] relative overflow-hidden">
-          </div>
-        </div>
-
-        <!-- 轮播控制按钮 -->
-        <button id="prev-slide" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center text-primary shadow-md hover:bg-white transition-custom z-10">
-          <i class="fa fa-chevron-left"></i>
-        </button>
-        <button id="next-slide" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center text-primary shadow-md hover:bg-white transition-custom z-10">
-          <i class="fa fa-chevron-right"></i>
-        </button>
-
-        <!-- 轮播指示器 -->
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
-          <button class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-custom active" data-index="0"></button>
-          <button class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-custom" data-index="1"></button>
-          <button class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-custom" data-index="2"></button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 近期活动部分 -->
-    <section id="events" class="py-16 md:py-24 bg-white">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <span class="inline-block px-3 py-1 mb-4 bg-primary/10 text-primary rounded-full text-sm font-medium">近期活动</span>
-          <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold mb-4">教会最新活动</h2>
-          <p class="text-lg text-dark/70">欢迎参与我们的各项活动，在团契中彼此建立，在敬拜中经历神的同在</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- 活动卡片1 -->
-          <div class="card-effect">
-            <div class="relative">
-              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751401171/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8.png" alt="2025退修会" class="w-full h-48 object-cover">
-              <div class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                <i class="fa fa-calendar mr-1"></i> 8/1-8/3
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">2025退修会</h3>
-              <p class="text-dark/70 mb-4">2025年8月1日至3日，我们将举行年度退修会，一同在主里安息，深度交流，灵命更新。</p>
-              <div class="flex justify-between items-center">
-                <span class="text-sm text-dark/60"><i class="fa fa-clock-o mr-1"></i> 8/1 - 8/3</span>
-                <a href="https://res.cloudinary.com/dtbsote4a/image/upload/v1751401171/%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E7%BC%96%E8%BE%91_%E7%AB%96%E5%90%91_600x800_1751401063539_p5ura8.png" target="_blank" class="text-primary font-medium hover:underline flex items-center">
-                  了解详情 <i class="fa fa-angle-right ml-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- 活动卡片2 -->
-          <div class="card-effect">
-            <div class="relative">
-              <img src="https://picsum.photos/id/1067/1920/1080" alt="主日学" class="w-full h-48 object-cover">
-              <div class="absolute top-4 left-4 bg-secondary text-dark px-3 py-1 rounded-full text-sm font-medium">
-                <i class="fa fa-calendar mr-1"></i> 每周日
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">主日学</h3>
-              <p class="text-dark/70 mb-4">每周日早上9:50，适合各个年龄段的圣经学习课程，帮助信徒深入理解神的话语。</p>
-              <div class="flex justify-between items-center">
-                <span class="text-sm text-dark/60"><i class="fa fa-clock-o mr-1"></i> 09:50 - 10:50</span>
-                <a href="#" class="text-primary font-medium hover:underline flex items-center">
-                  了解详情 <i class="fa fa-angle-right ml-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- 活动卡片3 -->
-          <div class="card-effect">
-            <div class="relative">
-              <img src="https://res.cloudinary.com/dtbsote4a/image/upload/v1751317344/PICNIC_kmkpun_bvkdvi.jpg" alt="教会野餐会" class="w-full h-48 object-cover">
-              <div class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
-                <i class="fa fa-calendar mr-1"></i> 7/12
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">教会野餐会</h3>
-              <p class="text-dark/70 mb-4">7月12日，教会将举行户外野餐会，弟兄姐妹一同享受美食，在轻松愉快的氛围中增进彼此的友谊。</p>
-              <div class="flex justify-between items-center">
-                <span class="text-sm text-dark/60"><i class="fa fa-clock-o mr-1"></i> 全天活动</span>
-                <a href="https://res.cloudinary.com/dtbsote4a/image/upload/v1751317344/PICNIC_kmkpun_bvkdvi.jpg" target="_blank" class="text-primary font-medium hover:underline flex items-center">
-                  了解详情 <i class="fa fa-angle-right ml-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center mt-12">
-          <a href="#" class="inline-block border-2 border-primary text-primary px-8 py-3 rounded-full font-medium hover:bg-primary hover:text-white transition-custom">
-            查看全部活动 <i class="fa fa-th-large ml-2"></i>
+  <main class="pt-16 md:pt-20">
+    <!-- 页面标题部分 -->
+    <section class="py-16 md:py-24 bg-gradient-to-br from-primary to-accent text-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-serif font-bold mb-6 text-shadow">每日灵修</h1>
+        <p class="text-[clamp(1.1rem,2vw,1.5rem)] max-w-3xl mx-auto text-white/90">
+          "你的话是我脚前的灯，是我路上的光。" - 诗篇119:105
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <button id="admin-toggle" class="bg-white text-primary px-6 py-3 rounded-full font-medium hover:bg-neutral transition-custom">
+            <i class="fa fa-edit mr-2"></i>发布新灵修
+          </button>
+          <a href="index.html" class="border-2 border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-primary transition-custom">
+            <i class="fa fa-home mr-2"></i>返回首页
           </a>
         </div>
       </div>
     </section>
 
-    <!-- 主日讲道部分 -->
-    <section id="sermon" class="py-16 md:py-24 bg-neutral">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <span class="inline-block px-3 py-1 mb-4 bg-primary/10 text-primary rounded-full text-sm font-medium">主日讲道</span>
-          <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold mb-4">最新讲道信息</h2>
-          <p class="text-lg text-dark/70">聆听神的话语，领受属灵的喂养，在真道上不断成长</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="order-2 lg:order-1">
-            <div class="bg-white p-8 rounded-xl shadow-lg">
-              <h3 class="text-2xl font-bold mb-4 text-primary">讲道标题：<span class="text-dark">信心的考验</span></h3>
-              <div class="flex items-center mb-6">
-                <img src="https://i.ytimg.com/vi/Z44X7Nfru-A/maxresdefault.jpg" alt="讲道牧师" class="w-12 h-12 rounded-full object-cover mr-4">
-                <div>
-                  <p class="font-medium">讲员：赵子成牧师</p>
-                  <p class="text-sm text-dark/60">日期：2023年6月25日</p>
-                </div>
-              </div>
-              <p class="text-dark/80 mb-6">
-                今天我们要探讨的是信心的考验。在人生的道路上，我们常常会面临各种挑战和困难，这些都是神对我们信心的考验。正如圣经中所说："忍受试探的人是有福的，因为他经过试验以后，必得生命的冠冕，这是主应许给那些爱他之人的。" (雅各书1:12)
-              </p>
-              <div class="flex flex-wrap gap-4 mb-6">
-                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">雅各书</span>
-                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">第1章</span>
-                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">第12节</span>
-                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">信心</span>
-                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">考验</span>
-              </div>
-              <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="inline-flex items-center text-primary font-medium hover:underline">
-                观看完整讲道视频 <i class="fa fa-play-circle ml-2"></i>
-              </a>
-            </div>
-          </div>
-          <div class="order-1 lg:order-2">
-            <div class="relative rounded-xl overflow-hidden shadow-xl">
-              <img src="https://cdn.monkplatform.com/image/czoxODc6Imh0dHBzJTNBJTJGJTJGNTFhZGVhZmY5ZDdiNWNlNGNhZDUtMWFjMTk4NWVmNDE0MWRkNDIzNjc4M2JkZjdkYzIzMDYuc3NsLmNmMi5yYWNrY2RuLmNvbSUyRnVwbG9hZGVkJTJGbCUyRjBlNDY2MjUyMl8xNDQ3MzUwMjE4X2xvZ29zLWJpYmxlLWNodXJjaC5qcGclM0ZzJTNENGRiMzcyM2U1YTAyYWM0OTAzMGFkMGMzNzYzZjc1YjgiOw==/logos-bible-church.jpg" alt="讲道图片" class="w-full h-auto">
-              <div class="absolute inset-0 bg-primary/20 flex items-center justify-center">
-                <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg hover:bg-primary hover:text-white transition-custom">
-                  <i class="fa fa-play text-3xl"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 教会行事历部分 -->
-    <section id="calendar" class="py-16 md:py-24 bg-white">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <span class="inline-block px-3 py-1 mb-4 bg-primary/10 text-primary rounded-full text-sm font-medium">教会行事历</span>
-          <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold mb-4">未来活动安排</h2>
-          <p class="text-lg text-dark/70">了解教会未来的活动安排，提前规划您的参与</p>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
-            <h3 id="calendar-title" class="text-xl font-bold mb-4 md:mb-0">2025年7月</h3>
-            <div class="flex space-x-2">
-              <button id="prev-month" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-custom">
-                <i class="fa fa-chevron-left mr-1"></i> 上月
-              </button>
-              <button id="next-month" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-custom">
-                下月 <i class="fa fa-chevron-right ml-1"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- 日历网格 -->
-          <div class="grid grid-cols-7 gap-2 mb-4">
-            <div class="text-center font-medium py-2">日</div>
-            <div class="text-center font-medium py-2">一</div>
-            <div class="text-center font-medium py-2">二</div>
-            <div class="text-center font-medium py-2">三</div>
-            <div class="text-center font-medium py-2">四</div>
-            <div class="text-center font-medium py-2">五</div>
-            <div class="text-center font-medium py-2">六</div>
-          </div>
-
-          <!-- 日历内容 -->
-          <div id="calendar-grid" class="grid grid-cols-7 gap-2">
-            <!-- 日历内容将通过JavaScript动态生成 -->
-          </div>
-
-          <!-- 图例 -->
-          <div class="flex flex-wrap gap-4 mt-8">
-            <div class="flex items-center">
-              <span class="w-3 h-3 rounded-full bg-primary mr-2"></span>
-              <span class="text-sm">主日崇拜</span>
-            </div>
-            <div class="flex items-center">
-              <span class="w-3 h-3 rounded-full bg-secondary mr-2"></span>
-              <span class="text-sm">野餐会</span>
-            </div>
-            <div class="flex items-center">
-              <span class="w-3 h-3 rounded-full bg-accent mr-2"></span>
-              <span class="text-sm">退修会</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 联系我们部分 -->
-    <section id="contact" class="py-16 md:py-24 bg-neutral">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <span class="inline-block px-3 py-1 mb-4 bg-primary/10 text-primary rounded-full text-sm font-medium">联络我们</span>
-          <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold mb-4">与我们取得联系</h2>
-          <p class="text-lg text-dark/70">若有任何问题或需要帮助，请随时与我们联系，我们期待与你见面</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div>
-            <div class="bg-white rounded-xl shadow-lg p-8">
-              <h3 class="text-2xl font-bold mb-6">联系方式</h3>
-              
-              <div class="space-y-6">
-                <div class="flex items-start">
-                  <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4 flex-shrink-0">
-                    <i class="fa fa-map-marker text-xl"></i>
-                  </div>
-                  <div>
-                    <h4 class="text-lg font-medium mb-1">教会地址</h4>
-                    <p class="text-dark/70">1010 N Tustin Ave, Santa Ana, CA 92705</p>
-                  </div>
-                </div>
-                
-                <div class="flex items-start">
-                  <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4 flex-shrink-0">
-                    <i class="fa fa-phone text-xl"></i>
-                  </div>
-                  <div>
-                    <h4 class="text-lg font-medium mb-1">电话</h4>
-                    <p class="text-dark/70">714-757-0056</p>
-                  </div>
-                </div>
-                
-                <div class="flex items-start">
-                  <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4 flex-shrink-0">
-                    <i class="fa fa-envelope text-xl"></i>
-                  </div>
-                  <div>
-                    <h4 class="text-lg font-medium mb-1">电子邮箱</h4>
-                    <p class="text-dark/70">kzhao8@gmail.com</p>
-                  </div>
-                </div>
-                
-                <div class="flex items-start">
-                  <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4 flex-shrink-0">
-                    <i class="fa fa-clock-o text-xl"></i>
-                  </div>
-                  <div>
-                    <h4 class="text-lg font-medium mb-1">主日聚会时间</h4>
-                    <p class="text-dark/70">每周日 上午11:00</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <!-- 管理员发布区域 -->
+    <section id="admin-panel" class="hidden py-16 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div class="bg-primary/5 rounded-xl p-8">
+          <h2 class="text-2xl font-bold mb-6 text-primary">发布新的每日灵修</h2>
           
-          <div>
-            <div class="bg-white rounded-xl shadow-lg p-8">
-              <h3 class="text-2xl font-bold mb-6">发送消息</h3>
+          <form id="devotion-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="devotion-title" class="block text-dark font-medium mb-2">标题</label>
+                <input type="text" id="devotion-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入灵修标题" required>
+              </div>
               
-              <form>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <label for="name" class="block text-dark font-medium mb-2">姓名</label>
-                    <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入您的姓名">
-                  </div>
-                  
-                  <div>
-                    <label for="email" class="block text-dark font-medium mb-2">电子邮箱</label>
-                    <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入您的电子邮箱">
-                  </div>
-                </div>
-                
-                <div class="mb-6">
-                  <label for="subject" class="block text-dark font-medium mb-2">主题</label>
-                  <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入消息主题">
-                </div>
-                
-                <div class="mb-6">
-                  <label for="message" class="block text-dark font-medium mb-2">消息内容</label>
-                  <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入您的消息内容"></textarea>
-                </div>
-                
-                <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-primary/90 transition-custom flex items-center justify-center">
-                  发送消息 <i class="fa fa-paper-plane ml-2"></i>
+              <div>
+                <label for="devotion-date" class="block text-dark font-medium mb-2">日期</label>
+                <input type="date" id="devotion-date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" required>
+              </div>
+            </div>
+
+            <div>
+              <label for="bible-verse" class="block text-dark font-medium mb-2">经文</label>
+              <input type="text" id="bible-verse" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="例如：约翰福音 3:16" required>
+            </div>
+
+            <div>
+              <label for="verse-content" class="block text-dark font-medium mb-2">经文内容</label>
+              <textarea id="verse-content" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入经文内容" required></textarea>
+            </div>
+
+            <div>
+              <label for="devotion-content" class="block text-dark font-medium mb-2">灵修内容</label>
+              <textarea id="devotion-content" rows="8" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入今日的灵修分享..." required></textarea>
+            </div>
+
+            <div>
+              <label for="prayer-point" class="block text-dark font-medium mb-2">祷告要点</label>
+              <textarea id="prayer-point" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入祷告要点" required></textarea>
+            </div>
+
+            <div class="flex gap-4">
+              <button type="submit" class="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-custom">
+                <i class="fa fa-check mr-2"></i>发布灵修
+              </button>
+              <button type="button" id="cancel-post" class="border-2 border-gray-300 text-dark px-8 py-3 rounded-lg font-medium hover:border-primary hover:text-primary transition-custom">
+                <i class="fa fa-times mr-2"></i>取消
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 灵修列表部分 -->
+    <section class="py-16 md:py-24">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- 主要内容区域 -->
+          <div class="lg:col-span-2">
+            <div id="devotions-list" class="space-y-8">
+              <!-- 灵修文章将在这里动态生成 -->
+            </div>
+
+            <!-- 分页 -->
+            <div class="flex justify-center mt-12">
+              <div class="flex space-x-2">
+                <button class="px-4 py-2 border border-gray-300 rounded-lg hover:border-primary hover:text-primary transition-custom">
+                  <i class="fa fa-chevron-left mr-1"></i>上一页
                 </button>
-              </form>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg">1</button>
+                <button class="px-4 py-2 border border-gray-300 rounded-lg hover:border-primary hover:text-primary transition-custom">2</button>
+                <button class="px-4 py-2 border border-gray-300 rounded-lg hover:border-primary hover:text-primary transition-custom">3</button>
+                <button class="px-4 py-2 border border-gray-300 rounded-lg hover:border-primary hover:text-primary transition-custom">
+                  下一页<i class="fa fa-chevron-right ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 侧边栏 -->
+          <div class="space-y-8">
+            <!-- 搜索框 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+              <h3 class="text-xl font-bold mb-4">搜索灵修</h3>
+              <div class="relative">
+                <input type="text" placeholder="输入关键词..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom">
+                <i class="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              </div>
+            </div>
+
+            <!-- 最近灵修 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+              <h3 class="text-xl font-bold mb-4">最近灵修</h3>
+              <div class="space-y-4" id="recent-devotions">
+                <!-- 最近灵修列表将在这里生成 -->
+              </div>
+            </div>
+
+            <!-- 经文分类 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+              <h3 class="text-xl font-bold mb-4">按书卷分类</h3>
+              <div class="space-y-2">
+                <a href="#" class="block text-dark/70 hover:text-primary transition-custom">创世记 (3)</a>
+                <a href="#" class="block text-dark/70 hover:text-primary transition-custom">诗篇 (8)</a>
+                <a href="#" class="block text-dark/70 hover:text-primary transition-custom">箴言 (5)</a>
+                <a href="#" class="block text-dark/70 hover:text-primary transition-custom">马太福音 (6)</a>
+                <a href="#" class="block text-dark/70 hover:text-primary transition-custom">约翰福音 (4)</a>
+                <a href="#" class="block text-dark/70 hover:text-primary transition-custom">罗马书 (7)</a>
+                <a href="#" class="block text-dark/70 hover:text-primary transition-custom">以弗所书 (2)</a>
+              </div>
+            </div>
+
+            <!-- 每月主题 -->
+            <div class="bg-gradient-to-br from-primary to-accent text-white rounded-xl p-6">
+              <h3 class="text-xl font-bold mb-4">本月主题</h3>
+              <p class="text-white/90 mb-3">七月主题：信心的力量</p>
+              <p class="text-sm text-white/80">本月我们将一同探讨信心在基督徒生活中的重要性，学习如何在困难中持守信心。</p>
             </div>
           </div>
         </div>
@@ -428,278 +253,197 @@
   <!-- 页脚 -->
   <footer class="bg-dark text-white pt-16 pb-8">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-        <div>
-          <h3 class="text-xl font-bold mb-6">圣经真道教会</h3>
-          <p class="text-white/70 mb-6">以真理为根基，以爱为纽带，一同追求神的心意，传扬福音的盼望。</p>
-          <div class="flex space-x-4">
-            <a href="#" class="text-white/70 hover:text-white transition-custom">
-              <i class="fa fa-weixin text-xl"></i>
-            </a>
-            <a href="#" class="text-white/70 hover:text-white transition-custom">
-              <i class="fa fa-weibo text-xl"></i>
-            </a>
-            <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="text-white/70 hover:text-white transition-custom">
-              <i class="fa fa-youtube-play text-xl"></i>
-            </a>
-          </div>
+      <div class="text-center">
+        <h3 class="text-xl font-bold mb-4">圣经真道教会</h3>
+        <p class="text-white/70 mb-6">以真理为根基，以爱为纽带</p>
+        <div class="flex justify-center space-x-6 mb-8">
+          <a href="index.html" class="text-white/70 hover:text-white transition-custom">首页</a>
+          <a href="index.html#about" class="text-white/70 hover:text-white transition-custom">关于我们</a>
+          <a href="index.html#events" class="text-white/70 hover:text-white transition-custom">近期活动</a>
+          <a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="text-white/70 hover:text-white transition-custom">主日讲道</a>
+          <a href="index.html#contact" class="text-white/70 hover:text-white transition-custom">联络我们</a>
         </div>
-        
-        <div>
-          <h3 class="text-xl font-bold mb-6">快速链接</h3>
-          <ul class="space-y-3">
-            <li><a href="#about" class="text-white/70 hover:text-white transition-custom">关于我们</a></li>
-            <li><a href="#events" class="text-white/70 hover:text-white transition-custom">近期活动</a></li>
-            <li><a href="https://www.youtube.com/@logosbiblechurch9900" target="_blank" class="text-white/70 hover:text-white transition-custom">主日讲道</a></li>
-            <li><a href="#calendar" class="text-white/70 hover:text-white transition-custom">教会行事历</a></li>
-            <li><a href="#contact" class="text-white/70 hover:text-white transition-custom">联络我们</a></li>
-          </ul>
-        </div>
-        
-        <div>
-          <h3 class="text-xl font-bold mb-6">联系方式</h3>
-          <ul class="space-y-3">
-            <li class="flex items-start">
-              <i class="fa fa-map-marker mt-1 mr-3 text-white/70"></i>
-              <span class="text-white/70">1010 N Tustin Ave, Santa Ana, CA 92705</span>
-            </li>
-            <li class="flex items-start">
-              <i class="fa fa-phone mt-1 mr-3 text-white/70"></i>
-              <span class="text-white/70">714-757-0056</span>
-            </li>
-            <li class="flex items-start">
-              <i class="fa fa-envelope mt-1 mr-3 text-white/70"></i>
-              <span class="text-white/70">kzhao8@gmail.com</span>
-            </li>
-          </ul>
-        </div>
-        
-        <div>
-          <h3 class="text-xl font-bold mb-6">聚会时间</h3>
-          <ul class="space-y-3">
-            <li class="flex justify-between">
-              <span class="text-white/70">主日崇拜</span>
-              <span class="text-white">每周日 11:00</span>
-            </li>
-            <li class="flex justify-between">
-              <span class="text-white/70">主日学</span>
-              <span class="text-white">每周日 09:50</span>
-            </li>
-            <li class="flex justify-between">
-              <span class="text-white/70">野餐会</span>
-              <span class="text-white">7月12日</span>
-            </li>
-            <li class="flex justify-between">
-              <span class="text-white/70">退修会</span>
-              <span class="text-white">8月1-3日</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="border-t border-white/20 pt-8">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <p class="text-white/70 mb-4 md:mb-0">© 2025 圣经真道教会. 保留所有权利.</p>
-          <div class="flex space-x-6">
-            <a href="#" class="text-white/70 hover:text-white transition-custom">隐私政策</a>
-            <a href="#" class="text-white/70 hover:text-white transition-custom">使用条款</a>
-            <a href="#" class="text-white/70 hover:text-white transition-custom">网站地图</a>
-          </div>
+        <div class="border-t border-white/20 pt-8">
+          <p class="text-white/70">© 2025 圣经真道教会. 保留所有权利.</p>
         </div>
       </div>
     </div>
   </footer>
 
   <script>
-    // 移动端菜单切换
+    // 存储灵修文章的数组
+    let devotions = [
+      {
+        id: 1,
+        title: "神的恩典够我们用",
+        date: "2025-07-03",
+        bibleVerse: "哥林多后书 12:9",
+        verseContent: "他对我说：'我的恩典够你用的，因为我的能力是在人的软弱上显得完全。'所以，我更喜欢夸自己的软弱，好叫基督的能力覆庇我。",
+        content: "在人生的旅程中，我们常常会遇到各种挑战和困难。有时候我们会感到力不从心，觉得自己的能力不足以应对面前的困境。但是保罗在这里告诉我们一个宝贵的真理：神的恩典够我们用的。\n\n这节经文是神对保罗的回应，当时保罗为了身上的一根刺三次求告主，希望这刺能够离开他。但神没有按照保罗的意思除去这根刺，而是告诉他：'我的恩典够你用的。'\n\n神的恩典不是按照我们的感觉或环境来衡量的，而是按照神的标准。当我们感到软弱的时候，正是神的能力显现的时候。神喜欢使用软弱的器皿，因为这样更能彰显祂的荣耀。",
+        prayer: "亲爱的天父，感谢您赐给我们够用的恩典。求您帮助我们在软弱中依靠您的能力，在困难中经历您的同在。让我们学会在软弱中夸胜，因为您的能力在我们的软弱上显得完全。奉主耶稣基督的名祷告，阿们。",
+        author: "赵子成牧师"
+      },
+      {
+        id: 2,
+        title: "行在光明中",
+        date: "2025-07-02",
+        bibleVerse: "约翰一书 1:7",
+        verseContent: "我们若在光明中行，如同神在光明中，就彼此相交，他儿子耶稣的血也洗净我们一切的罪。",
+        content: "约翰在这里提到了基督徒生活的一个重要原则：行在光明中。什么是光明？在圣经中，光明代表真理、圣洁、神的同在。行在光明中就是按照神的真理和标准来生活。\n\n当我们行在光明中时，会发生两件美好的事情：第一，我们彼此相交。真正的团契建立在共同行在神的光明中。第二，耶稣的血洗净我们一切的罪。这不是说我们变得完美无瑕，而是说当我们愿意行在光明中时，神会不断地洁净我们。\n\n行在光明中需要我们诚实面对自己的软弱和罪，不隐藏、不伪装。这可能会让我们感到不舒服，但这是通往真正自由和洁净的道路。",
+        prayer: "主啊，求您光照我们的心，让我们看见自己需要改变的地方。帮助我们不逃避，而是勇敢地行在您的光明中。求您的宝血洁净我们，让我们能够与弟兄姐妹有真正的团契。奉主名祷告，阿们。",
+        author: "赵子成牧师"
+      },
+      {
+        id: 3,
+        title: "神必预备",
+        date: "2025-07-01",
+        bibleVerse: "创世记 22:14",
+        verseContent: "亚伯拉罕给那地方起名叫'耶和华以勒'，直到今日人还说：'在耶和华的山上必有预备。'",
+        content: "在亚伯拉罕献以撒的故事中，我们看到了神奇妙的预备。当亚伯拉罕举刀要杀儿子的时候，神预备了一只公羊代替以撒作为燔祭。这个故事不仅仅是历史事件，更是神对我们每个人的应许。\n\n'耶和华以勒'意思是'神必预备'或'神必看见'。神看见我们的需要，也为我们的需要作了预备。有时候我们看不见神的预备，就像亚伯拉罕起初没有看见那只公羊一样，但神的预备从来没有迟延。\n\n在我们人生的'摩利亚山'上，当我们面临困难的抉择或看似无解的问题时，我们可以相信神必有预备。祂不会让我们独自承担超过我们能力的重担。",
+        prayer: "耶和华以勒的神，感谢您总是在我们需要的时候为我们预备。求您帮助我们在困难中仍然信靠您，相信您的预备从不迟延。求您开我们的眼睛，让我们看见您的预备。奉主耶稣的名祷告，阿们。",
+        author: "赵子成牧师"
+      }
+    ];
+
+    // DOM 元素
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
+    const adminToggle = document.getElementById('admin-toggle');
+    const adminPanel = document.getElementById('admin-panel');
+    const devotionForm = document.getElementById('devotion-form');
+    const cancelPost = document.getElementById('cancel-post');
+    const devotionsList = document.getElementById('devotions-list');
+    const recentDevotions = document.getElementById('recent-devotions');
 
+    // 移动端菜单切换
     menuToggle.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
     });
 
-    // 轮播图功能
-    const carousel = document.querySelector('.carousel-slides');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.carousel-dot');
-    const prevBtn = document.getElementById('prev-slide');
-    const nextBtn = document.getElementById('next-slide');
-
-    let currentSlide = 0;
-    const totalSlides = slides.length;
-
-    function updateSlide() {
-      // 移动到当前幻灯片
-      carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-      
-      // 更新指示器
-      dots.forEach((dot, index) => {
-        if (index === currentSlide) {
-          dot.classList.add('active');
-          dot.style.backgroundColor = 'white';
-        } else {
-          dot.classList.remove('active');
-          dot.style.backgroundColor = 'rgba(255,255,255,0.5)';
-        }
-      });
-    }
-
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      updateSlide();
-    }
-
-    function prevSlide() {
-      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-      updateSlide();
-    }
-
-    // 事件监听器
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-
-    // 指示器点击事件
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        currentSlide = index;
-        updateSlide();
-      });
+    // 管理员面板切换
+    adminToggle.addEventListener('click', () => {
+      adminPanel.classList.toggle('hidden');
+      // 设置今天的日期
+      document.getElementById('devotion-date').valueAsDate = new Date();
     });
 
-    // 初始化第一张幻灯片
-    updateSlide();
-
-    // 自动轮播 (每5秒切换一次)
-    setInterval(nextSlide, 5000);
-
-    // 日历功能
-    let currentDate = new Date(2025, 6, 1); // 2025年7月 (月份从0开始)
-
-    const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', 
-                       '七月', '八月', '九月', '十月', '十一月', '十二月'];
-
-    function getChineseWeekday(date) {
-      const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
-      return weekdays[date.getDay()];
-    }
-
-    function generateCalendar(year, month) {
-      const firstDay = new Date(year, month, 1);
-      const lastDay = new Date(year, month + 1, 0);
-      const daysInMonth = lastDay.getDate();
-      const startingDayOfWeek = firstDay.getDay();
-
-      // 上个月的最后几天
-      const prevMonth = new Date(year, month, 0);
-      const daysInPrevMonth = prevMonth.getDate();
-
-      let calendarHTML = '';
-      let dayCount = 1;
-      let nextMonthDayCount = 1;
-
-      // 生成6周的日历
-      for (let week = 0; week < 6; week++) {
-        for (let day = 0; day < 7; day++) {
-          const cellIndex = week * 7 + day;
-          
-          if (week === 0 && day < startingDayOfWeek) {
-            // 上个月的日期
-            const prevMonthDay = daysInPrevMonth - startingDayOfWeek + day + 1;
-            calendarHTML += `
-              <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
-                <span class="block text-sm">${prevMonthDay}</span>
-              </div>
-            `;
-          } else if (dayCount <= daysInMonth) {
-            // 当月日期
-            const currentDay = dayCount;
-            const currentDayDate = new Date(year, month, currentDay);
-            const weekday = getChineseWeekday(currentDayDate);
-            
-            let eventHTML = '';
-            
-            // 添加活动 - 根据新的活动安排
-            if (weekday === '日') {
-              eventHTML = '<div class="mt-1 text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">主日崇拜</div>';
-            } 
-            // 7月12日野餐会
-            if (month === 6 && currentDay === 12) {
-              eventHTML = '<div class="mt-1 text-xs bg-secondary/10 text-secondary rounded-full px-2 py-0.5">野餐会</div>';
-            }
-            // 8月1-3日退修会
-            if (month === 7 && (currentDay >= 1 && currentDay <= 3)) {
-              eventHTML = '<div class="mt-1 text-xs bg-accent/10 text-accent rounded-full px-2 py-0.5">退修会</div>';
-            }
-
-            calendarHTML += `
-              <div class="h-20 border rounded-lg p-2 text-center hover:border-primary hover:shadow-md transition-custom">
-                <span class="block text-sm">${currentDay}</span>
-                ${eventHTML}
-              </div>
-            `;
-            dayCount++;
-          } else {
-            // 下个月的日期
-            calendarHTML += `
-              <div class="h-20 border rounded-lg p-2 text-center text-dark/40">
-                <span class="block text-sm">${nextMonthDayCount}</span>
-              </div>
-            `;
-            nextMonthDayCount++;
-          }
-        }
-        
-        // 如果已经显示了所有当月日期且已经有足够的行，就停止
-        if (dayCount > daysInMonth && week >= 4) {
-          break;
-        }
-      }
-
-      return calendarHTML;
-    }
-
-    function updateCalendar() {
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
-      
-      // 更新标题
-      document.getElementById('calendar-title').textContent = `${year}年${monthNames[month]}`;
-      
-      // 更新日历内容
-      document.getElementById('calendar-grid').innerHTML = generateCalendar(year, month);
-    }
-
-    function previousMonth() {
-      currentDate.setMonth(currentDate.getMonth() - 1);
-      updateCalendar();
-    }
-
-    function nextMonth() {
-      currentDate.setMonth(currentDate.getMonth() + 1);
-      updateCalendar();
-    }
-
-    // 绑定按钮事件
-    document.getElementById('prev-month').addEventListener('click', previousMonth);
-    document.getElementById('next-month').addEventListener('click', nextMonth);
-
-    // 初始化日历
-    updateCalendar();
-
-    // 平滑滚动到导航链接
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
+    cancelPost.addEventListener('click', () => {
+      adminPanel.classList.add('hidden');
+      devotionForm.reset();
     });
+
+    // 发布新灵修
+    devotionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const newDevotion = {
+        id: devotions.length + 1,
+        title: document.getElementById('devotion-title').value,
+        date: document.getElementById('devotion-date').value,
+        bibleVerse: document.getElementById('bible-verse').value,
+        verseContent: document.getElementById('verse-content').value,
+        content: document.getElementById('devotion-content').value,
+        prayer: document.getElementById('prayer-point').value,
+        author: "赵子成牧师"
+      };
+      
+      devotions.unshift(newDevotion);
+      renderDevotions();
+      renderRecentDevotions();
+      
+      // 隐藏管理员面板并重置表单
+      adminPanel.classList.add('hidden');
+      devotionForm.reset();
+      
+      // 显示成功消息
+      alert('灵修文章发布成功！');
+    });
+
+    // 格式化日期
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${year}年${month}月${day}日`;
+    }
+
+    // 渲染灵修列表
+    function renderDevotions() {
+      devotionsList.innerHTML = devotions.map(devotion => `
+        <article class="card-effect">
+          <div class="p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+              <div class="flex items-center mb-2 sm:mb-0">
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3">
+                  <i class="fa fa-book"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-dark/60">${formatDate(devotion.date)}</p>
+                  <p class="text-sm text-dark/80">作者：${devotion.author}</p>
+                </div>
+              </div>
+              <span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">${devotion.bibleVerse}</span>
+            </div>
+            
+            <h2 class="text-2xl font-bold mb-4 text-primary">${devotion.title}</h2>
+            
+            <div class="verse-highlight mb-6">
+              <p class="font-medium text-primary mb-2">${devotion.bibleVerse}</p>
+              <p class="italic text-dark/80">${devotion.verseContent}</p>
+            </div>
+            
+            <div class="devotion-content mb-6">
+              ${devotion.content.split('\n\n').map(paragraph => `<p class="mb-4">${paragraph}</p>`).join('')}
+            </div>
+            
+            <div class="bg-neutral/50 rounded-lg p-4 mb-6">
+              <h4 class="font-bold text-primary mb-2"><i class="fa fa-praying-hands mr-2"></i>祷告</h4>
+              <p class="text-dark/80 italic">${devotion.prayer}</p>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">每日灵修</span>
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">信心</span>
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">成长</span>
+            </div>
+            
+            <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+              <div class="flex space-x-4">
+                <button class="text-dark/60 hover:text-primary transition-custom">
+                  <i class="fa fa-heart mr-1"></i>喜欢
+                </button>
+                <button class="text-dark/60 hover:text-primary transition-custom">
+                  <i class="fa fa-share mr-1"></i>分享
+                </button>
+                <button class="text-dark/60 hover:text-primary transition-custom">
+                  <i class="fa fa-bookmark mr-1"></i>收藏
+                </button>
+              </div>
+              <button class="text-primary font-medium hover:underline">
+                阅读更多 <i class="fa fa-angle-right ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // 渲染最近灵修
+    function renderRecentDevotions() {
+      const recentItems = devotions.slice(0, 5);
+      recentDevotions.innerHTML = recentItems.map(devotion => `
+        <div class="flex items-start">
+          <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 flex-shrink-0 mt-1">
+            <i class="fa fa-book text-sm"></i>
+          </div>
+          <div>
+            <h4 class="font-medium text-sm mb-1 hover:text-primary transition-custom cursor-pointer">${devotion.title}</h4>
+            <p class="text-xs text-dark/60">${formatDate(devotion.date)}</p>
+          </div>
+        </div>
+      `).join('');
+    }
 
     // 导航栏滚动效果
     window.addEventListener('scroll', () => {
@@ -712,6 +456,10 @@
         navbar.classList.remove('bg-white/95');
       }
     });
+
+    // 初始化页面
+    renderDevotions();
+    renderRecentDevotions();
   </script>
 </body>
 
